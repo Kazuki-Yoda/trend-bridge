@@ -9,6 +9,10 @@ asyncio
 google-genai[aiohttp]  # Google Vertex AI / Gemini API for Gemini models
 byteplus-python-sdk-v2  # BytePlus API for Seedance 2.0 video models
 
+# Translation pipeline
+yt-dlp           # download YouTube / Bilibili videos + subtitles
+demucs           # vocal separation (optional, for voice isolation)
+
 # Testing
 pytest
 pytest-asyncio
