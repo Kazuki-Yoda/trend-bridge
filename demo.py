@@ -5,9 +5,11 @@ Unified pipeline: translate any Chinese video (YouTube or Bilibili) to English.
 - If the video has ZH subtitles: uses them.
 - If not: transcribes with Gemini multimodal.
 - Auto-detects speaker gender and picks matching TTS voice.
+- Set VOICE_CLONE=1 to use XTTS-v2 cross-lingual voice cloning instead of Gemini TTS.
 
 Usage:
     GOOGLE_API_KEY=... python3 demo.py [VIDEO_URL] [DURATION_SECONDS] [OUTPUT_DIR]
+    GOOGLE_API_KEY=... VOICE_CLONE=1 python3 demo.py ...
 
 Defaults to the Bilibili demo video for 20 seconds.
 """
@@ -24,6 +26,7 @@ from trend_bridge.translation.services.gender_detect import detect_speaker_gende
 from trend_bridge.translation.services.tts import build_timed_audio, build_srt, swap_audio_and_burn_subs
 
 GOOGLE_API_KEY = os.environ.get("GOOGLE_API_KEY", "AIzaSyByXXl3lqJ_Avqw7k_YWlZzu_IrLPQmeeU")
+VOICE_CLONE    = os.environ.get("VOICE_CLONE", "0") == "1"
 
 VIDEO_URL    = sys.argv[1] if len(sys.argv) > 1 else "https://www.bilibili.com/video/BV1BW4y1n7QQ"
 DURATION     = int(sys.argv[2]) if len(sys.argv) > 2 else 20
@@ -92,9 +95,15 @@ for s in segments:
     print(f"  Rewrite: {s['text_en']}")
     print()
 
-# ── STEP 6: TTS with gender-matched voice ─────────────────────
-step(6, f"Gemini TTS ({gender} voice: {voice}): generate timed English audio")
-audio_path = build_timed_audio(segments, api_key=GOOGLE_API_KEY, voice=voice, work_dir=TMP_DIR)
+# ── STEP 6: TTS ───────────────────────────────────────────────
+if VOICE_CLONE:
+    from trend_bridge.translation.services.voice_clone import extract_reference_clip
+    step(6, "XTTS-v2: extract reference clip + cross-lingual voice clone")
+    ref_wav = extract_reference_clip(video_path, TMP_DIR, duration=8.0)
+    audio_path = build_timed_audio(segments, reference_wav=ref_wav, work_dir=TMP_DIR)
+else:
+    step(6, f"Gemini TTS ({gender} voice: {voice}): generate timed English audio")
+    audio_path = build_timed_audio(segments, api_key=GOOGLE_API_KEY, voice=voice, work_dir=TMP_DIR)
 print(f"  Timed audio: {audio_path}")
 
 # ── STEP 7: Generate English SRT ──────────────────────────────

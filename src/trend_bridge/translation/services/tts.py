@@ -64,15 +64,28 @@ def build_timed_audio(
     *,
     api_key: str | None = None,
     voice: str = "Aoede",
+    reference_wav: str | None = None,
     total_duration: float | None = None,
     work_dir: str = "/tmp",
 ) -> str:
     """
     Generate per-segment TTS and assemble into one audio track
     aligned to the original subtitle timestamps.
+
+    If reference_wav is provided, uses XTTS-v2 voice cloning (cross-lingual).
+    Otherwise uses Gemini TTS with the selected voice.
     Returns path to the assembled WAV file.
     """
-    sample_rate = 24000
+    use_clone = reference_wav is not None
+    if use_clone:
+        from trend_bridge.translation.services.voice_clone import synthesize_with_clone
+        # XTTS-v2 outputs 22050 Hz; adjust sample_rate accordingly
+        sample_rate = 22050
+        print(f"  Mode: XTTS-v2 voice clone (reference: {reference_wav})")
+    else:
+        sample_rate = 24000
+        print(f"  Mode: Gemini TTS (voice: {voice})")
+
     channels = 1
     bits = 16
     bytes_per_sample = channels * bits // 8
@@ -86,9 +99,13 @@ def build_timed_audio(
 
     for i, seg in enumerate(segments):
         print(f"  TTS segment {i+1}/{len(segments)}: {seg['text_en']}")
-        if i > 0:
-            time.sleep(7)  # stay under 10 RPM limit
-        wav_bytes = synthesize_segment(seg["text_en"], api_key=api_key, voice=voice)
+        if use_clone:
+            assert reference_wav is not None
+            wav_bytes = synthesize_with_clone(seg["text_en"], reference_wav)
+        else:
+            if i > 0:
+                time.sleep(7)  # stay under Gemini 10 RPM limit
+            wav_bytes = synthesize_segment(seg["text_en"], api_key=api_key, voice=voice)
         pcm = wav_bytes[44:]  # strip WAV header
 
         start_sec = _ts_to_sec(seg["start"])
