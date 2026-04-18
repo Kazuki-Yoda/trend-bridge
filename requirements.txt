@@ -16,8 +16,6 @@ uvicorn[standard]
 
 # Translation pipeline
 yt-dlp           # download YouTube / Bilibili videos + subtitles
-demucs           # vocal separation for clean reference audio (voice clone path)
-TTS              # Coqui XTTS-v2 cross-lingual voice cloning (VOICE_CLONE=1)
 
 # Testing
 pytest
