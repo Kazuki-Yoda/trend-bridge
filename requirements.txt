@@ -1,4 +1,10 @@
 # Add dependencies here, one per line
+pydantic
+
+# Async
+httpx
+asyncio
 
 # API Clients
-byteplus-python-sdk-v2
+google-genai[aiohttp]  # Google Vertex AI / Gemini API for Gemini models
+byteplus-python-sdk-v2  # BytePlus API for Seedance 2.0 video models
