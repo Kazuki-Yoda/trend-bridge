@@ -10,6 +10,10 @@ asyncio
 google-genai[aiohttp]  # Google Vertex AI / Gemini API for Gemini models
 byteplus-python-sdk-v2  # BytePlus API for Seedance 2.0 video models
 
+# Web
+fastapi
+uvicorn[standard]
+
 # Translation pipeline
 yt-dlp           # download YouTube / Bilibili videos + subtitles
 demucs           # vocal separation for clean reference audio (voice clone path)
