@@ -25,7 +25,9 @@ from trend_bridge.translation.services.localizer import localize_segments
 from trend_bridge.translation.services.gender_detect import detect_speaker_gender, pick_voice
 from trend_bridge.translation.services.tts import build_timed_audio, build_srt, swap_audio_and_burn_subs
 
-GOOGLE_API_KEY = os.environ.get("GOOGLE_API_KEY", "AIzaSyByXXl3lqJ_Avqw7k_YWlZzu_IrLPQmeeU")
+GOOGLE_API_KEY = os.environ.get("GOOGLE_API_KEY", "")
+if not GOOGLE_API_KEY:
+    raise SystemExit("Set GOOGLE_API_KEY environment variable before running.")
 VOICE_CLONE    = os.environ.get("VOICE_CLONE", "0") == "1"
 
 VIDEO_URL    = sys.argv[1] if len(sys.argv) > 1 else "https://www.bilibili.com/video/BV1BW4y1n7QQ"
