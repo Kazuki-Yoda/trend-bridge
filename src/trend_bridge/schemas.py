@@ -20,7 +20,7 @@ class VideoMetadata(BaseModel):
     title: str
     caption: str | None = None
     hashtags: list[str] = []
-    source_platform: Literal["douyin", "bilibili", "xiaohongshu"]
+    source_platform: Literal["douyin", "bilibili", "xiaohongshu", "youtube"]
     original_url: str | None = None
 
 
