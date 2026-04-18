@@ -59,6 +59,7 @@ def extract_reference_clip(
         subprocess.run(
             ["python3.11", "-m", "demucs", "--two-stems", "vocals",
              "--out", str(demucs_out), str(raw_audio)],
+            # python3.11 is where demucs + TTS are installed
             capture_output=True, check=True, timeout=120,
         )
         found = list(demucs_out.glob("**/vocals.wav"))
