@@ -26,3 +26,5 @@ build/
 
 # Local large inputs/outputs files
 .inputs/
+samples/gemini_cache/
+
