@@ -120,9 +120,31 @@ def build_overlay_timeline(
 
 # ── ffmpeg drawtext filter ────────────────────────────────────
 
+_UI_NOISE = {"home", "about", "data", "show", "map", "line", "column", "details",
+             "show more", "topic", "close", "microdata", "data directory",
+             "data and resources", "economy", "people", "prosperity", "earth",
+             "infrastructure", "digital", "display"}
+
+def _is_meaningful(ov: dict) -> bool:
+    """Filter out single-word UI navigation items and very short strings."""
+    en = ov["en"].strip().lower()
+    if en in _UI_NOISE:
+        return False
+    if len(ov["zh"]) <= 1:   # single character
+        return False
+    return True
+
+
 def _escape(s: str) -> str:
-    """Escape special characters for ffmpeg drawtext."""
-    return s.replace("'", "\\'").replace(":", "\\:").replace("\\", "\\\\")
+    """Escape special characters for ffmpeg drawtext filter script."""
+    # In a filter script file, fewer escapes are needed than on the command line
+    return (s
+            .replace("\\", "\\\\")
+            .replace("'", "\u2019")   # replace straight apostrophe with curly to avoid quoting issues
+            .replace(":", "\\:")
+            .replace("%", "\\%")
+            .replace("$", "\\$")
+            )
 
 
 def apply_text_overlays(
@@ -146,29 +168,31 @@ def apply_text_overlays(
     into a single ffmpeg pass.
     """
     ffmpeg_bin = "/opt/homebrew/opt/ffmpeg-full/bin/ffmpeg"
-    srt_escaped = os.path.abspath(srt_path).replace("'", "\\'")
+    srt_abs = os.path.abspath(srt_path)
 
-    # Build subtitle + drawtext filter chain
-    filters: list[str] = [f"subtitles={srt_escaped}"]
+    # Filter out UI noise, keep meaningful text only
+    meaningful = [ov for ov in overlays if _is_meaningful(ov)]
+    print(f"  Applying {len(meaningful)}/{len(overlays)} overlays (filtered UI noise)")
 
-    for ov in overlays:
+    # Build filter chain as lines — written to a script file to avoid arg-length limits
+    filter_lines: list[str] = [f"subtitles={srt_abs}"]
+
+    for ov in meaningful:
         x = int(ov["x_pct"] / 100 * video_width)
         y = int(ov["y_pct"] / 100 * video_height)
-        # Centre the text box on the detected position
-        t_start = ov["t_start"]
-        t_end   = ov["t_end"]
         en_text = _escape(ov["en"])
-
-        filters.append(
+        filter_lines.append(
             f"drawtext=text='{en_text}'"
-            f":fontsize={font_size}"
-            f":fontcolor={font_color}"
+            f":fontsize={font_size}:fontcolor={font_color}"
             f":box=1:boxcolor={box_color}:boxborderw=6"
             f":x={x}-text_w/2:y={y}-text_h/2"
-            f":enable='between(t,{t_start},{t_end})'"
+            f":enable='between(t,{ov['t_start']},{ov['t_end']})'"
         )
 
-    vf = ",".join(filters)
+    # Write filter script to temp file
+    script_path = os.path.join(os.path.dirname(output_path), "vf_script.txt")
+    with open(script_path, "w") as f:
+        f.write(",\n".join(filter_lines))
 
     result = subprocess.run([
         ffmpeg_bin, "-y",
@@ -177,14 +201,14 @@ def apply_text_overlays(
         "-map", "0:v:0",
         "-map", "1:a:0",
         "-c:v", "libx264",
-        "-vf", vf,
+        "-filter_script:v", script_path,
         "-c:a", "aac",
         "-shortest",
         os.path.abspath(output_path),
     ], capture_output=True)
 
     if result.returncode != 0:
-        print("ffmpeg stderr:", result.stderr.decode()[-800:])
+        print("ffmpeg stderr:", result.stderr.decode()[-1000:])
         result.check_returncode()
     return output_path
 
