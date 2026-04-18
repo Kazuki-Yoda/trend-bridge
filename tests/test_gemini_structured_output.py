@@ -1,12 +1,13 @@
 """Minimal smoke test for GeminiStructuredOutputService.
 
 Requires GOOGLE_API_KEY in .env or environment.
-Run: pytest tests/test_gemini_structured_output.py -v
+Run: pytest tests/test_gemini_structured_output.py -m api -v
 """
 
 from __future__ import annotations
 
 import os
+from pathlib import Path
 
 import pytest
 from dotenv import load_dotenv
@@ -44,3 +45,30 @@ def test_generate_text_only():
     assert result.name == "Japan"
     assert isinstance(result.capital, str)
     assert result.population > 0
+
+
+SAMPLE_VIDEO = Path(__file__).resolve().parent.parent / ".inputs" / "videos" / "test_oreo_children.mp4"
+
+
+class VideoSummary(BaseModel):
+    description: str
+    duration_estimate: str
+    key_objects: list[str]
+
+
+def test_generate_with_video():
+    from trend_bridge.api_clients.vertexai.structured_output import (
+        GeminiStructuredOutputService,
+        MediaPart,
+    )
+
+    service = GeminiStructuredOutputService()
+    result = service.generate(
+        schema=VideoSummary,
+        prompt="Describe what happens in this video.",
+        media=[MediaPart(file_path=str(SAMPLE_VIDEO), mime_type="video/mp4")],
+    )
+
+    assert isinstance(result, VideoSummary)
+    assert len(result.description) > 0
+    assert len(result.key_objects) > 0
