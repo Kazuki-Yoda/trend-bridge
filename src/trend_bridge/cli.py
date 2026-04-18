@@ -91,6 +91,11 @@ def main(argv: list[str] | None = None) -> int:
 
     sub.add_parser("demo", help="Run the zero-arg demo over bundled samples")
 
+    p_serve = sub.add_parser("serve", help="Serve the FastAPI web UI (app.py)")
+    p_serve.add_argument("--host", default="127.0.0.1")
+    p_serve.add_argument("--port", type=int, default=8000)
+    p_serve.add_argument("--reload", action="store_true")
+
     args = parser.parse_args(argv)
 
     if args.command == "score":
@@ -117,6 +122,17 @@ def main(argv: list[str] | None = None) -> int:
 
         outcomes = run_demo()
         render_demo(outcomes)
+        return 0
+
+    if args.command == "serve":
+        import uvicorn
+
+        uvicorn.run(
+            "app:app",
+            host=args.host,
+            port=args.port,
+            reload=args.reload,
+        )
         return 0
 
     return 1

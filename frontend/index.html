@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Trend Bridge — Cross-Region Viral Predictor</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css" />
+    <style>
+        :root { --pico-font-size: 15px; }
+        main.container { max-width: 1100px; padding-block: 2rem; }
+        h1 { margin-bottom: 0.25rem; }
+        .subtitle { color: var(--pico-muted-color); margin-bottom: 2rem; }
+
+        .card { margin-bottom: 1.5rem; }
+        .card header { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
+        .card header .title { flex: 1 1 auto; min-width: 200px; }
+        .card header h3 { margin: 0; font-size: 1.05rem; }
+        .card header .title small { color: var(--pico-muted-color); }
+
+        .score-badge {
+            display: inline-flex; align-items: center; justify-content: center;
+            min-width: 64px; padding: 0.35rem 0.75rem;
+            border-radius: 999px; font-weight: 700; font-size: 1.25rem;
+            color: white; background: #6c757d;
+        }
+        .score-badge.green  { background: #2a9d57; }
+        .score-badge.amber  { background: #d19417; }
+        .score-badge.red    { background: #b83a3a; }
+
+        .verdict { font-style: italic; margin: 0.75rem 0; }
+
+        .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        @media (max-width: 720px) { .two-col { grid-template-columns: 1fr; } }
+        .col h5 { margin-bottom: 0.25rem; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--pico-muted-color); }
+        .col ul { margin: 0; padding-left: 1.1rem; }
+
+        .chips { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+        .chip {
+            display: inline-block; padding: 0.15rem 0.55rem;
+            border-radius: 999px; font-size: 0.78rem;
+            background: var(--pico-muted-border-color); color: var(--pico-color);
+        }
+        .chip.platform { background: #e0e7ff; color: #1e3a8a; }
+        .chip.severity-info    { background: #dbeafe; color: #1e3a8a; }
+        .chip.severity-caution { background: #fef3c7; color: #92400e; }
+        .chip.severity-blocker { background: #fee2e2; color: #991b1b; }
+        .chip.priority-must   { background: #fee2e2; color: #991b1b; }
+        .chip.priority-should { background: #fef3c7; color: #92400e; }
+        .chip.priority-nice   { background: #e5e7eb; color: #374151; }
+
+        .remix {
+            background: var(--pico-card-background-color);
+            border-left: 3px solid var(--pico-primary);
+            padding: 0.75rem 1rem; margin: 0.75rem 0;
+            border-radius: 4px;
+        }
+        .remix .label { font-size: 0.75rem; text-transform: uppercase;
+                        letter-spacing: 0.05em; color: var(--pico-muted-color); }
+        .remix h4 { margin: 0.15rem 0 0.5rem; font-size: 1rem; }
+
+        table.actions { width: 100%; font-size: 0.88rem; }
+        table.actions th { font-size: 0.78rem; text-transform: uppercase;
+                           letter-spacing: 0.05em; color: var(--pico-muted-color); }
+        table.actions td { vertical-align: top; }
+
+        details.raw { margin-top: 1rem; }
+        details.raw pre {
+            background: #0b1020; color: #d5ddf5;
+            padding: 0.75rem; border-radius: 4px;
+            font-size: 0.78rem; overflow: auto; max-height: 400px;
+        }
+
+        video {
+            width: 260px; max-height: 360px;
+            border-radius: 4px; background: #000;
+        }
+        .card .body { display: flex; gap: 1.25rem; flex-wrap: wrap; }
+        .card .body .video-wrap { flex: 0 0 auto; }
+        .card .body .content { flex: 1 1 300px; min-width: 280px; }
+
+        #loading, #error {
+            text-align: center; padding: 3rem; color: var(--pico-muted-color);
+        }
+        #error { color: #b83a3a; }
+    </style>
+</head>
+<body>
+    <main class="container">
+        <h1>Trend Bridge</h1>
+        <p class="subtitle">CN short-form video → TikTok-US fit score + localization plan.</p>
+
+        <div id="loading">Loading outcomes…</div>
+        <div id="error" hidden></div>
+        <div id="cards"></div>
+    </main>
+
+    <script>
+        const $ = (sel, root = document) => root.querySelector(sel);
+        const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({
+            "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+        })[c]);
+
+        function scoreColor(score) {
+            if (score >= 75) return "green";
+            if (score >= 50) return "amber";
+            return "red";
+        }
+
+        function chip(text, cls = "") {
+            return `<span class="chip ${cls}">${esc(text)}</span>`;
+        }
+
+        function renderCard(view, rank, total) {
+            const { outcome, video_url } = view;
+            const { metadata, report, plan } = outcome;
+
+            const works = (report.top_reasons_works || []).map((r) => `<li>${esc(r)}</li>`).join("");
+            const struggles = (report.top_reasons_struggles || []).map((r) => `<li>${esc(r)}</li>`).join("");
+
+            const patterns = (report.trend_pattern_matches || []).map(
+                (m) => chip(`${m.trend_pattern_name} · ${m.match_strength}`, "")
+            ).join("");
+
+            const flags = (report.cultural_flags || []).map(
+                (f) => chip(`${f.category}: ${f.message}`, `severity-${f.severity}`)
+            ).join("") || `<small style="color: var(--pico-muted-color)">none</small>`;
+
+            const hashtags = (plan.suggested_hashtags || []).map((h) => chip("#" + h)).join("");
+
+            const actions = (plan.actions || []).map((a) => `
+                <tr>
+                    <td>${chip(a.priority, "priority-" + a.priority)}</td>
+                    <td>${esc(a.area)}</td>
+                    <td>${esc(a.action)}<br /><small style="color: var(--pico-muted-color)">${esc(a.rationale)}</small></td>
+                </tr>
+            `).join("");
+
+            return `
+                <article class="card">
+                    <header>
+                        <span class="score-badge ${scoreColor(report.fit_score)}">${report.fit_score}</span>
+                        <div class="title">
+                            <h3>${esc(metadata.title)}</h3>
+                            <small>rank ${rank} of ${total} · ${chip(metadata.source_platform, "platform")} · confidence: ${esc(report.confidence)}</small>
+                        </div>
+                    </header>
+
+                    <div class="body">
+                        <div class="video-wrap">
+                            <video src="${esc(video_url)}" controls preload="metadata"></video>
+                        </div>
+
+                        <div class="content">
+                            <p class="verdict">“${esc(report.one_line_verdict)}”</p>
+
+                            <div class="two-col">
+                                <div class="col">
+                                    <h5>Why it works</h5>
+                                    <ul>${works || "<li><em>none</em></li>"}</ul>
+                                </div>
+                                <div class="col">
+                                    <h5>Why it struggles</h5>
+                                    <ul>${struggles || "<li><em>none</em></li>"}</ul>
+                                </div>
+                            </div>
+
+                            <h5 style="margin-top: 1rem;">Trend pattern matches</h5>
+                            <div class="chips">${patterns || `<small style="color: var(--pico-muted-color)">none</small>`}</div>
+
+                            <h5 style="margin-top: 1rem;">Cultural flags</h5>
+                            <div class="chips">${flags}</div>
+
+                            <h5 style="margin-top: 1rem;">Hook rewrite</h5>
+                            <small>source: <em>${esc(report.hook_analysis?.source_hook || "")}</em> → target
+                            (${esc(report.hook_analysis?.target_audience_fit || "")}):
+                            <strong>${esc(report.hook_analysis?.suggested_target_hook || "")}</strong></small>
+                        </div>
+                    </div>
+
+                    <div class="remix">
+                        <div class="label">Localization plan · effort: ${esc(plan.estimated_effort)} · target: ${esc(plan.target_language)}</div>
+                        <p style="margin: 0.3rem 0 0.6rem;">${esc(plan.summary)}</p>
+                        <h4>${esc(plan.suggested_new_title)}</h4>
+                        <p style="margin: 0;">${esc(plan.suggested_new_caption)}</p>
+                        <div class="chips" style="margin-top: 0.5rem;">${hashtags}</div>
+                    </div>
+
+                    <h5>Actions</h5>
+                    <table class="actions">
+                        <thead>
+                            <tr><th style="width: 90px;">Priority</th><th style="width: 110px;">Area</th><th>Action</th></tr>
+                        </thead>
+                        <tbody>${actions || `<tr><td colspan="3"><small>no actions</small></td></tr>`}</tbody>
+                    </table>
+
+                    <details class="raw">
+                        <summary>Raw JSON</summary>
+                        <pre>${esc(JSON.stringify(outcome, null, 2))}</pre>
+                    </details>
+                </article>
+            `;
+        }
+
+        async function load() {
+            const loading = $("#loading");
+            const err = $("#error");
+            const cards = $("#cards");
+            try {
+                const res = await fetch("/api/outcomes");
+                if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                const views = await res.json();
+                loading.hidden = true;
+                if (!views.length) {
+                    cards.innerHTML = "<p><em>No outcomes returned. Check the server logs.</em></p>";
+                    return;
+                }
+                cards.innerHTML = views.map((v, i) => renderCard(v, i + 1, views.length)).join("");
+            } catch (e) {
+                loading.hidden = true;
+                err.hidden = false;
+                err.textContent = "Failed to load outcomes: " + e.message;
+            }
+        }
+
+        load();
+    </script>
+</body>
+</html>
