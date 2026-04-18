@@ -1,5 +1,6 @@
 # Add dependencies here, one per line
 pydantic
+python-dotenv  # load .env file for API keys
 
 # Async
 httpx

@@ -18,6 +18,9 @@ import sys
 
 sys.path.insert(0, "src")
 
+from dotenv import load_dotenv
+load_dotenv()  # loads .env from current directory
+
 from trend_bridge.translation.services.fetcher import fetch_video, parse_vtt
 from trend_bridge.translation.services.transcriber import transcribe_video
 from trend_bridge.translation.services.translator import translate_batch
@@ -27,7 +30,7 @@ from trend_bridge.translation.services.tts import build_timed_audio, build_srt, 
 
 GOOGLE_API_KEY = os.environ.get("GOOGLE_API_KEY", "")
 if not GOOGLE_API_KEY:
-    raise SystemExit("Set GOOGLE_API_KEY environment variable before running.")
+    raise SystemExit("GOOGLE_API_KEY not set. Add it to .env or export it.")
 VOICE_CLONE    = os.environ.get("VOICE_CLONE", "0") == "1"
 
 VIDEO_URL    = sys.argv[1] if len(sys.argv) > 1 else "https://www.bilibili.com/video/BV1BW4y1n7QQ"
