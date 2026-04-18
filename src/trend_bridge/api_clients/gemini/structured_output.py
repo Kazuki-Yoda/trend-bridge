@@ -1,14 +1,15 @@
 from __future__ import annotations
 
 import io
-import os
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import TypeVar
 
-from google import genai
 from google.genai import types
 from pydantic import BaseModel
+
+from trend_bridge.api_clients.gemini.client import get_client
+from trend_bridge.api_clients.gemini.media import MediaPart
 
 T = TypeVar("T", bound=BaseModel)
 
@@ -17,44 +18,6 @@ DEFAULT_MODEL = "gemini-3.1-pro-preview"
 # Inline data limit for the Gemini API request body.
 # Files larger than this are uploaded via the File API (up to 2 GB per file).
 _INLINE_MAX_BYTES = 20 * 1024 * 1024  # 20 MB
-
-_client: genai.Client | None = None
-
-
-def get_client() -> genai.Client:
-    """Return a module-level singleton Gemini API client."""
-    global _client
-    if _client is None:
-        _client = genai.Client(api_key=os.environ["GOOGLE_API_KEY"])
-    return _client
-
-
-@dataclass
-class MediaPart:
-    """A media input (image or video) to include in the prompt.
-
-    For inline data (``data`` or ``file_path``), small files are sent directly
-    in the request body.  Files larger than ~20 MB are automatically uploaded
-    via the Gemini File API (supports up to 2 GB).
-
-    Usage::
-
-        # Image from bytes
-        MediaPart(data=image_bytes, mime_type="image/png")
-
-        # Image from local file
-        MediaPart(file_path="photo.jpg", mime_type="image/jpeg")
-
-        # Video from local file
-        MediaPart(file_path="/tmp/clip.mp4", mime_type="video/mp4")
-
-        # Large video (>20 MB) — automatically uploaded via File API
-        MediaPart(file_path="/tmp/long_video.mp4", mime_type="video/mp4")
-    """
-
-    data: bytes | None = None
-    mime_type: str = "image/jpeg"
-    file_path: str | None = None
 
 
 @dataclass

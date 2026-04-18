@@ -57,9 +57,9 @@ class VideoSummary(BaseModel):
 
 
 def test_generate_with_video():
+    from trend_bridge.api_clients.gemini.media import MediaPart
     from trend_bridge.api_clients.gemini.structured_output import (
         GeminiStructuredOutputService,
-        MediaPart,
     )
 
     service = GeminiStructuredOutputService()
