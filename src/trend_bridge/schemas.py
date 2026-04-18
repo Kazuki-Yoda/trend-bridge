@@ -101,3 +101,18 @@ class LocalizationPlan(BaseModel):
     suggested_hashtags: list[str]
     actions: list[LocalizationAction]
     estimated_effort: Literal["light", "moderate", "heavy"]
+
+
+# --- Pipeline-level output: one source video end-to-end --------------------
+
+
+class ScoreOutcome(BaseModel):
+    """Bundled A + L result for a single source video.
+
+    Returned by ``cli.run_score``; ``demo.run_demo`` returns a list of these
+    sorted by ``report.fit_score`` desc.
+    """
+
+    metadata: VideoMetadata
+    report: ScoringReport
+    plan: LocalizationPlan

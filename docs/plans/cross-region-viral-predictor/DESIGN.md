@@ -30,27 +30,27 @@ Gemini call budget for the hero demo: 3 sources × 2 calls = **6 calls**, sequen
 ## 3. Module layout
 
 ```
+samples/                          # repo-root dev data (NOT shipped with the package)
+  insights/us_tiktok.json         # D: committed regional-insight corpus
+  source_videos/                  # bundled demo sources
+    video_01.mp4 + video_01.json
+    video_02.mp4 + video_02.json
+    video_03.mp4 + video_03.json
+  gemini_cache/                   # TB_MOCK cache (populated by record mode)
+
 src/trend_bridge/
   api_clients/
     gemini/
       client.py                 # existing — singleton genai.Client
       media.py                  # existing — MediaPart
-      structured_output.py      # existing — GeminiStructuredOutputServiceService
-      mock.py                   # CachingGeminiStructuredOutputServiceService (TB_MOCK)
+      structured_output.py      # existing — GeminiStructuredOutputService
+      mock.py                   # CachingGeminiStructuredOutputService (TB_MOCK)
       __init__.py               # existing exports + make_gemini_service() factory
-  samples/
-    insights/us_tiktok.json     # D: committed regional-insight corpus
-    source_videos/              # bundled demo sources
-      video_01.mp4 + video_01.json
-      video_02.mp4 + video_02.json
-      video_03.mp4 + video_03.json
-    gemini_cache/               # TB_MOCK cache (populated by record mode)
   schemas.py                    # Pydantic: VideoMetadata, RegionalInsight,
                                 # ScoringReport, LocalizationPlan, ...
   insight_builder.py            # offline: build samples/insights/us_tiktok.json
   scorer.py                     # A: score_video() -> ScoringReport
   localizer.py                  # L: plan_localization() -> LocalizationPlan
-  renderer.py                   # Rich pretty-printer
   cli.py                        # arg-driven: `score`, `build-insight`
   demo.py                       # zero-arg: loops bundled sources
   __main__.py                   # python -m trend_bridge → cli
@@ -58,7 +58,8 @@ src/trend_bridge/
 
 - One file per responsibility; small enough to hold in context at once.
 - All Gemini calls route through `api_clients/gemini/`. Business logic never sees the mock flag.
-- `samples/` ships inside the package because the demo depends on it at runtime. The name reflects that this is placeholder data today (swapped for real ingestion later), not pytest-style test fixtures.
+- `samples/` lives at the repo root (not inside the package). It is dev/demo data, not production content, and not installed via `pip install`. Commands are expected to run from the repo root; paths resolve relative to `cwd` (or use `REPO_ROOT = Path(__file__).resolve().parents[2]` from inside the package if a caller ever runs from elsewhere).
+- **No renderer in P0.** Output is `print(json.dumps(model.model_dump(), indent=2, ensure_ascii=False))` of each Pydantic result, with a plain text header per source. A Rich or web renderer is P1 — see §10.
 
 ## 4. Schemas (`schemas.py`)
 
@@ -142,9 +143,9 @@ class LocalizationPlan(BaseModel):
 ### Schema design notes
 
 - `fit_score` and `match_strength` are ints, not floats — judge-readable, and Gemini emits them more stably.
-- `Literal` enums where the option set is fixed — keeps Gemini from drifting and lets the renderer color-code by value.
+- `Literal` enums where the option set is fixed — keeps Gemini from drifting and gives downstream readers (and a future renderer) a small, stable vocabulary to switch on.
 - `trend_pattern_name` is free-form string, not enum — A coins pattern names inline from the D corpus (Approach 1). This is the key simplification vs. pre-extracting archetypes at build time.
-- `CulturalFlag.severity="blocker"` is the demo's "do not ship this" signal; the renderer shows it as a red badge.
+- `CulturalFlag.severity="blocker"` is the demo's "do not ship this" signal; surfaced in the JSON output and reserved as the obvious cue for a future renderer to highlight.
 - `ScoringReport.notes` carries error context when a per-source run falls through to the stub report (see §6).
 - Deliberately absent: per-archetype confidence beyond `match_strength`, multi-target output in one report, timestamps/owners on actions, any reranker schema.
 
@@ -175,7 +176,9 @@ python -m trend_bridge score --source v.mp4 --metadata v.json --target us-tiktok
       → Gemini call #2, response_schema=LocalizationPlan
       → prompt includes the full ScoringReport JSON (reuses A's reasoning)
       → returns LocalizationPlan
- 4. renderer.render_pair(metadata, report, plan) → Rich panels to stdout
+ 4. Print a plain-text header for the source (title, platform, fit_score),
+    then dump the ScoringReport and LocalizationPlan as indented JSON
+    to stdout. No Rich, no colors, no panels — that is P1 (see §10).
 ```
 
 ### Runtime — demo (`demo`)
@@ -189,8 +192,8 @@ python -m trend_bridge demo
        run the same score+localize pair
        collect (metadata, report, plan)
  4. Sort collected list by report.fit_score desc
- 5. renderer.render_demo(sorted_triples) → header + one panel set per source,
-    highest-scoring first, with rank badge
+ 5. For each sorted triple, print the same plain-text header + JSON block
+    as the single-source path, preceded by a "=== rank N of M ===" line.
 ```
 
 ### What flows where
@@ -216,8 +219,36 @@ def make_gemini_service() -> GeminiStructuredOutputService:
 - **`TB_MOCK=record`** (dev loop) — on cache miss, real call + write `samples/gemini_cache/<hash>.json`; hit → return cached.
 - **`TB_MOCK=replay`** (test/CI) — hit → return cached; **miss → raise**. No accidental billing.
 
-**Cache key** = hash of `(model, system_prompt, user_prompt, schema_name, media_sha256_list)`.
-Media hashed by file bytes so the key is stable across reruns of the same `.mp4`.
+**Cache key — exact canonical form.** Compute once per `generate()` call:
+
+```python
+def cache_key(
+    *,
+    model: str,
+    system_prompt: str | None,
+    user_prompt: str,
+    schema: type[BaseModel],
+    media: list[MediaPart] | None,
+) -> str:
+    payload = {
+        "model": model,
+        "system_prompt": system_prompt,
+        "user_prompt": user_prompt,
+        "schema": f"{schema.__module__}.{schema.__qualname__}",
+        "media_sha256": [_sha256_media(m) for m in (media or [])],
+    }
+    canonical = json.dumps(
+        payload,
+        sort_keys=True,
+        ensure_ascii=False,
+        separators=(",", ":"),
+    )
+    return hashlib.sha256(canonical.encode("utf-8")).hexdigest()
+```
+
+Where `_sha256_media(m)` returns `hashlib.sha256(bytes).hexdigest()` over either `m.data` or `Path(m.file_path).read_bytes()`. The result is a 64-char lowercase hex digest, used as the filename: `samples/gemini_cache/<hex>.json`.
+
+**Why this canonicalization.** `sort_keys=True` + fixed `separators` + `ensure_ascii=False` makes the JSON byte-for-byte stable across dict insertion order and across unicode. Schema identity is `module.qualname` so renaming a schema class invalidates cached entries — safer than field-level structural hashing. Media are hashed by raw bytes so the key is stable across reruns of the same `.mp4` at any path.
 
 **Cache file** stores the parsed Pydantic output as JSON plus a sidecar `(model, schema_name, prompt_hash, prompt_excerpt)` for debuggability. No full-prompt persistence.
 
@@ -251,13 +282,17 @@ Stage command (the one the judge sees):
 python -m trend_bridge demo
 ```
 
-Expected output: a header panel, then three source panels ordered by fit_score desc. Each source panel contains:
+Expected output is plain text + JSON — no Rich, no colors. For each source (ordered by `fit_score` desc):
 
-- Source summary (title, platform, thumbnail not strictly required).
-- `ScoringReport` card (score badge, verdict, works/struggles bullets, top trend-pattern matches, cultural flags, hook analysis).
-- `LocalizationPlan` card (remix summary, new title/caption/hashtags, prioritized actions, effort badge).
+```
+=== rank 1 of 3 — fit_score=82 — "《早餐能有多卷》" [xiaohongshu] ===
+--- ScoringReport ---
+{ ...indented JSON of the ScoringReport model... }
+--- LocalizationPlan ---
+{ ...indented JSON of the LocalizationPlan model... }
+```
 
-`demo.py` internally calls the same `score` command path so `cat demo.py` reads as genuine arg-passing, not hardcoded inline logic.
+`demo.py` internally calls the same `score` command path so `cat demo.py` reads as genuine arg-passing, not hardcoded inline logic. A pretty renderer is explicitly P1 (§10).
 
 ## 10. Priorities
 
@@ -267,12 +302,13 @@ Everything in §1–§9.
 
 ### P1 — next, after P0 ships
 
+- **Rich terminal renderer.** A `renderer.py` module that turns the P0 JSON dumps into color-coded panels (score badge, severity colors on cultural flags, priority badges on actions). Wires into `cli.py` and `demo.py` behind a `--pretty` flag; default remains JSON so pipelines and tests stay stable.
 - **BytePlus Seedance video generation.** Use `LocalizationPlan` as input to generate a short remix preview or localized thumbnail. Dependency is already in `requirements.txt`; no calls in P0.
 - **Concurrency.** `asyncio.gather` across sources in the demo loop. A and L per source stay sequential (L depends on A). Cuts demo runtime ~3×.
 
 ### P2 — if time remains after P1
 
-- **FastAPI + thin web UI.** Video upload + report cards on a page. Backend reuses `scorer` + `localizer` modules directly. No auth.
+- **FastAPI + thin web UI.** Video upload + report cards on a page. Backend reuses `scorer` + `localizer` modules directly. No auth. Reuses the P1 renderer's panel structure.
 
 ### Not in this project (explicit non-goals)
 
