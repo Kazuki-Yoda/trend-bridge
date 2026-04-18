@@ -25,6 +25,40 @@ Python monolith. Backend only (frontend may come later in `frontend/`).
 - Tests: `pytest`
 - Worktrees: use `.worktrees/` directory
 
+## Python style
+
+Type hints are the contract humans and coding agents both read. Stay strict enough that pyright catches mistakes; loose enough we're not fighting the checker.
+
+### Type hints
+
+- Annotate every function signature (args **and** return) — helpers too. Signature > docstring for AI readers.
+- Modern syntax, always: `list[int]`, `dict[str, int]`, `tuple[str, ...]`, `X | None`, `A | B`. Never `List` / `Optional` / `Union` from `typing`.
+- Start every file with `from __future__ import annotations`. Annotations stay lazy; syntax stays consistent.
+- Avoid `Any`. If unavoidable at an I/O boundary, add a one-line comment explaining why.
+- Keyword-only args (`*,`) for any bool param and for any function with 2+ args of the same type.
+- Postel: accept wide input types (`Iterable[str]`), return concrete ones (`list[str]`).
+- No stub files. Types live next to code.
+
+### Data shapes
+
+- **Pydantic `BaseModel`** for anything crossing a boundary: LLM inputs/outputs, HTTP payloads, config files, fixtures. Our validation layer.
+- **`@dataclass(slots=True)`** for plain internal records; `frozen=True` when it fits.
+- **`TypedDict`** for JSON-shaped dicts passed through untouched.
+- **`Literal["a", "b"]`** over string params with an implicit enum.
+- **`NewType("PostId", str)`** for primitive IDs that would otherwise get mixed up.
+- **Protocols** over ABCs for duck-typed interfaces.
+
+### Checker
+
+- Editor LSP (pyright / Pylance) is the primary signal. Red squiggle → fix before commit.
+- `# type: ignore[specific-code]` only, never bare `# type: ignore`.
+- If pyright is genuinely wrong: `# pyright: ignore[reportXYZ]` with a one-line reason.
+
+### Naming and docs
+
+- Descriptive names replace most comments. A good name > a docstring.
+- Only docstring public functions and non-obvious behaviour. One-line summary is usually enough.
+
 ## Hackathon mode
 
 We have ~3 hours. Optimise for the end-to-end demo, not for production.
