@@ -1,0 +1,41 @@
+{
+  "summary": "A plan to recontextualize a niche Chinese historical drama remix into a relatable US TikTok meme by leveraging the visual irony of a dramatic emperor and adding strong English POV text overlays.",
+  "target_language": "en-US",
+  "suggested_new_title": "Even emperors get sad 😔👑",
+  "suggested_new_caption": "Being royal doesn't stop the seasonal depression from hitting hard. 😭",
+  "suggested_hashtags": [
+    "pov",
+    "relatable",
+    "dramatic",
+    "seasonaldepression",
+    "meme",
+    "emo"
+  ],
+  "actions": [
+    {
+      "priority": "must",
+      "area": "captions",
+      "action": "Add a large text overlay to the first 3 seconds: 'POV: When you are a literal Emperor but you still get seasonal depression 😭'.",
+      "rationale": "Provides immediate context for the visual irony to a US audience that does not recognize the characters or the source material."
+    },
+    {
+      "priority": "must",
+      "area": "language",
+      "action": "Add hardcoded English subtitles for the Mandarin audio, ensuring the opening line explicitly translates to 'Huanhuan, I am emo~'.",
+      "rationale": "The core joke relies on an ancient historical figure using modern slang ('emo'). Without translation, the US audience completely misses the punchline."
+    },
+    {
+      "priority": "should",
+      "area": "visuals",
+      "action": "Apply a visual filter, slight zoom, or use a green-screen 'react' format where the creator appears in the corner of the video.",
+      "rationale": "The source uses unedited copyrighted TV clips which could trigger automated IP strikes or shadowbans on US TikTok."
+    },
+    {
+      "priority": "nice",
+      "area": "cta",
+      "action": "Add a pinned comment asking 'What is making you emo today?' or 'Tag a friend who is always this dramatic.'",
+      "rationale": "Drives comment section engagement by connecting the historical/emo theme to everyday relatable complaints."
+    }
+  ],
+  "estimated_effort": "moderate"
+}
