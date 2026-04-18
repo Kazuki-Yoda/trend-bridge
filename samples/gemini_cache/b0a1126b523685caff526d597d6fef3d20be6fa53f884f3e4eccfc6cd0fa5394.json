@@ -1,0 +1,40 @@
+{
+  "summary": "Transform the video from a niche Chinese pop-culture parody into a universal, relatable 'POV' reaction meme by replacing the audio, trimming the footage, and adding English context.",
+  "target_language": "en-US",
+  "suggested_new_title": "The anxiety is real 💀",
+  "suggested_new_caption": "We've all been there. What's the worst text to get back?",
+  "suggested_hashtags": [
+    "pov",
+    "relatable",
+    "texting",
+    "overthinking",
+    "reaction"
+  ],
+  "actions": [
+    {
+      "priority": "must",
+      "area": "music",
+      "action": "Mute the original Chinese audio track completely and replace it with a trending US TikTok sound, such as a dramatic sigh, sad violin, or a trending melancholic audio.",
+      "rationale": "The rapid-fire Chinese parody song creates an immediate language barrier and the cultural reference is completely lost on a US audience."
+    },
+    {
+      "priority": "must",
+      "area": "captions",
+      "action": "Remove or cover the existing Chinese subtitles. Add a prominent English text overlay on screen: 'POV: You sent a risky text 20 minutes ago and they just replied with 'K'.'",
+      "rationale": "US meme culture relies heavily on 'POV' text overlays to recontextualize unfamiliar visuals into relatable, everyday situations."
+    },
+    {
+      "priority": "should",
+      "area": "visuals",
+      "action": "Crop the video slightly or use a blur bar to hide the Chinese watermarks and text at the top of the screen.",
+      "rationale": "Visible foreign text and watermarks can trigger immediate swipe-aways from US users who assume the content is not meant for them."
+    },
+    {
+      "priority": "should",
+      "area": "length",
+      "action": "Trim the video to just the first 4-5 seconds showing the emperor lying in bed looking distressed, cutting the subsequent montage of the swing and rain.",
+      "rationale": "A short, looping clip of the distressed emperor works perfectly as a reaction meme. The extended montage dilutes the core joke and hurts retention."
+    }
+  ],
+  "estimated_effort": "moderate"
+}

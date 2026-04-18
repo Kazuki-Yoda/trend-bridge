@@ -1,0 +1,46 @@
+{
+  "summary": "Optimize the video for the US 'Oddly Satisfying' and ASMR niches by adding an immediate visual hook, English context overlays, and enhancing the raw scraping audio while slightly dynamicizing the pacing.",
+  "target_language": "en-US",
+  "suggested_new_title": "Making a bamboo cup from scratch 🎋",
+  "suggested_new_caption": "The sound of peeling this bamboo is so satisfying 🤤 Wait for the finished cup! #asmr #oddlysatisfying #bamboocraft",
+  "suggested_hashtags": [
+    "asmr",
+    "oddlysatisfying",
+    "bamboocraft",
+    "woodworking",
+    "diy"
+  ],
+  "actions": [
+    {
+      "priority": "must",
+      "area": "visuals",
+      "action": "Insert a 0.5-second flash of the finished bamboo cup at the 00:00 mark before showing the peeling process.",
+      "rationale": "Provides immediate visual context and establishes the stakes of the video, which is crucial for retaining the US TikTok audience."
+    },
+    {
+      "priority": "must",
+      "area": "captions",
+      "action": "Add a text overlay that reads 'Making a cup from scratch 🎋 (ASMR)' and keep it on screen for the first 3 seconds.",
+      "rationale": "Addresses the cultural flag of lacking context. US viewers need text to quickly orient themselves in the feed."
+    },
+    {
+      "priority": "should",
+      "area": "music",
+      "action": "Isolate, EQ, and boost the volume of the raw bamboo scraping sounds. Do not add background music.",
+      "rationale": "The raw ASMR audio is the strongest asset for the 'Sensory-Driven Process' trend. Enhancing it maximizes niche appeal."
+    },
+    {
+      "priority": "should",
+      "area": "pacing",
+      "action": "Apply a slight speed ramp (e.g., 1.5x speed) to the middle peeling section (00:03-00:08), returning to normal speed for the final cut and glass insertion.",
+      "rationale": "Breaks up the uniform pacing to match the dynamic editing style expected by US audiences without losing the satisfying visual transformation."
+    },
+    {
+      "priority": "nice",
+      "area": "cta",
+      "action": "Add a subtle text overlay at the very end (00:11-00:13) asking 'What should we make next? 👇'.",
+      "rationale": "Encourages comments and engagement, which helps push the video further in the algorithm."
+    }
+  ],
+  "estimated_effort": "light"
+}

@@ -1,0 +1,7 @@
+{
+  "model": "gemini-3.1-pro-preview",
+  "schema": "trend_bridge.schemas.LocalizationPlan",
+  "prompt_hash": "db4578d70e43438f9b35dbf3ad687440ea68b4976318a0f9e656ea2cdf2e5755",
+  "prompt_excerpt": "# Source video metadata (from youtube)\nTitle: liziqi making new bamboo cup\nCaption: liziqi making new bamboo cup//liziqi #liziqi #shorts #trending #bamboo art#liziqi new episode 2025\nHashtags: liziqi,",
+  "system_prompt_excerpt": "You are a creator's remix-planning partner. A scoring pass has already analysed this SOURCE video against what's trending on the TARGET platform. Your job is to turn that analysis into a concrete, pri"
+}

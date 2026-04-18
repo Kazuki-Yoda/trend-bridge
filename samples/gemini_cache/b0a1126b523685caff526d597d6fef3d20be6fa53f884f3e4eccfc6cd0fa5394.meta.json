@@ -1,0 +1,7 @@
+{
+  "model": "gemini-3.1-pro-preview",
+  "schema": "trend_bridge.schemas.LocalizationPlan",
+  "prompt_hash": "b0a1126b523685caff526d597d6fef3d20be6fa53f884f3e4eccfc6cd0fa5394",
+  "prompt_excerpt": "# Source video metadata (from bilibili)\nTitle: 嬛嬛，朕emo啦\nCaption: 这里是歌手四郎（歌都是我唱的不是剪辑）全网同名：奶茶小肥仔\nHashtags: 原创扩音计划, 洗脑, 魔性, 甄嬛传, 嬛嬛, emo\n\n# Prior ScoringReport (A's analysis)\n\n```json\n{\n  \"fit_score\": 10",
+  "system_prompt_excerpt": "You are a creator's remix-planning partner. A scoring pass has already analysed this SOURCE video against what's trending on the TARGET platform. Your job is to turn that analysis into a concrete, pri"
+}
