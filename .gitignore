@@ -23,3 +23,6 @@ build/
 
 # Worktrees
 .worktrees/
+
+# Local large inputs/outputs files
+.inputs/
