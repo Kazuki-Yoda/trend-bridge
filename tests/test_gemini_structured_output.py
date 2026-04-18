@@ -31,7 +31,7 @@ class Country(BaseModel):
 
 
 def test_generate_text_only():
-    from trend_bridge.api_clients.vertexai.structured_output import (
+    from trend_bridge.api_clients.gemini.structured_output import (
         GeminiStructuredOutputService,
     )
 
@@ -57,7 +57,7 @@ class VideoSummary(BaseModel):
 
 
 def test_generate_with_video():
-    from trend_bridge.api_clients.vertexai.structured_output import (
+    from trend_bridge.api_clients.gemini.structured_output import (
         GeminiStructuredOutputService,
         MediaPart,
     )
