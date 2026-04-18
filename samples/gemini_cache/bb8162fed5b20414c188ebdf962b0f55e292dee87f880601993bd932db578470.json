@@ -1,0 +1,45 @@
+{
+  "fit_score": 75,
+  "confidence": "medium",
+  "one_line_verdict": "A visually satisfying, ASMR-heavy craft video that will appeal to the cottagecore and oddly satisfying niches, though it lacks the typical fast-paced TikTok text hook.",
+  "top_reasons_works": [
+    "High-quality ASMR audio of scraping and cutting bamboo creates immediate sensory satisfaction.",
+    "Cinematic, tight close-ups focus entirely on the craftsmanship, completely bypassing any language barriers.",
+    "Short 14-second duration naturally encourages looping and high completion rates."
+  ],
+  "top_reasons_struggles": [
+    "Lacks a text overlay or verbal hook to immediately contextualize what is being made for the viewer.",
+    "Slower, deliberate pacing contrasts with the hyper-fast editing typical of mainstream US TikTok tutorials.",
+    "Absence of a visible creator face or personality limits the parasocial engagement that drives many US trends."
+  ],
+  "trend_pattern_matches": [
+    {
+      "trend_pattern_name": "ASMR Process Satisfaction",
+      "match_strength": 90,
+      "rationale": "Matches the corpus's cooking tutorial trend of using raw, satisfying audio (scraping/cutting) to drive engagement without needing background music."
+    },
+    {
+      "trend_pattern_name": "Cinematic Slow-Living",
+      "match_strength": 85,
+      "rationale": "Aligns with the 'slow Sunday' lifestyle trend, utilizing high-quality visuals and a calming, deliberate atmosphere to retain viewers looking to decompress."
+    },
+    {
+      "trend_pattern_name": "Direct-to-Camera Urgency",
+      "match_strength": 10,
+      "rationale": "Fails to match the dominant trend of fast-paced, talking-head hooks seen in the tech, pop culture, and storytime videos in the corpus."
+    }
+  ],
+  "cultural_flags": [
+    {
+      "severity": "info",
+      "category": "format",
+      "message": "US TikTok audiences typically expect text overlays to provide immediate context; adding a subtle text hook would improve initial retention."
+    }
+  ],
+  "hook_analysis": {
+    "source_hook": "A tight close-up of a two-handled blade peeling the bright green skin off a bamboo cylinder, accompanied by a loud, satisfying scraping sound.",
+    "target_audience_fit": "needs_rework",
+    "suggested_target_hook": "Keep the visual and ASMR audio exactly as is, but add a brief, fading text overlay: 'Making a zero-waste cup from scratch 🎋🔊' to provide immediate context."
+  },
+  "notes": "Capitalize on the ASMR aspect by ensuring the audio is mixed prominently. Target the #oddlysatisfying and #cottagecore communities where slow-paced craftsmanship thrives."
+}

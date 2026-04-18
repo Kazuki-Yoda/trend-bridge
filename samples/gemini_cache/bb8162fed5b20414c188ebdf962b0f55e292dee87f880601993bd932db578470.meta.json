@@ -1,0 +1,7 @@
+{
+  "model": "gemini-3.1-pro-preview",
+  "schema": "trend_bridge.schemas.ScoringReport",
+  "prompt_hash": "bb8162fed5b20414c188ebdf962b0f55e292dee87f880601993bd932db578470",
+  "prompt_excerpt": "# Source video (from youtube)\nTitle: liziqi making new bamboo cup\nCaption: liziqi making new bamboo cup//liziqi #liziqi #shorts #trending #bamboo art#liziqi new episode 2025\nHashtags: liziqi, shorts, ",
+  "system_prompt_excerpt": "You are a cross-region short-form-video strategist. Given a SOURCE video (from a Chinese SNS platform) and a CORPUS of videos currently trending on a TARGET platform, produce a structured ScoringRepor"
+}

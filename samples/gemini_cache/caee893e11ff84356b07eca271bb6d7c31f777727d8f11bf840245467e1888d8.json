@@ -1,0 +1,46 @@
+{
+  "summary": "The source video is a highly specific Chinese pop-culture meme using copyrighted TV footage that will not resonate with a US audience. To localize this, the creator must discard the original visuals entirely and extract the universally understandable 'emo' audio snippet to use as a punchline for a relatable, creator-shot POV skit.",
+  "target_language": "en-US",
+  "suggested_new_title": "When the minor inconvenience hits",
+  "suggested_new_caption": "I am officially emo. What's your minor inconvenience today? 😔",
+  "suggested_hashtags": [
+    "pov",
+    "relatable",
+    "emo",
+    "dramatic",
+    "comedy"
+  ],
+  "actions": [
+    {
+      "priority": "must",
+      "area": "visuals",
+      "action": "Discard all original TV show footage. Record a new video of yourself acting out a relatable, overly dramatic reaction to a minor inconvenience (e.g., staring blankly at a laptop, lying dramatically on the couch).",
+      "rationale": "The original footage is copyrighted Chinese TV that US audiences won't recognize, and the US TikTok algorithm heavily favors original, creator-led content."
+    },
+    {
+      "priority": "must",
+      "area": "music",
+      "action": "Extract the audio snippet from 0:01 to 0:04 where the voice sings the word 'emo'. Use this as the comedic soundbite playing over your dramatic reaction.",
+      "rationale": "The goofy, off-key delivery of the English slang 'emo' is the only universally understandable and funny element for a US audience. It fits perfectly into the 'trending audio' meme format."
+    },
+    {
+      "priority": "must",
+      "area": "captions",
+      "action": "Add English on-screen text to set up the POV. Example: 'POV: When your iced coffee order is slightly wrong but you are already having a day.'",
+      "rationale": "US TikTok relies heavily on on-screen text to provide context for relatable POV skits and hook the viewer in the first second."
+    },
+    {
+      "priority": "must",
+      "area": "language",
+      "action": "Ensure none of the original Chinese hardcoded text or subtitles are visible in the new video.",
+      "rationale": "Mandarin text creates an immediate language barrier that will cause a US audience to scroll past, assuming the content is not meant for them."
+    },
+    {
+      "priority": "should",
+      "area": "length",
+      "action": "Trim the final video down to just 5-7 seconds, focusing only on the visual setup and the 'emo' audio punchline.",
+      "rationale": "The original video is too long for a simple audio punchline meme. Short, punchy videos with high replay value perform significantly better for this type of relatable humor."
+    }
+  ],
+  "estimated_effort": "heavy"
+}

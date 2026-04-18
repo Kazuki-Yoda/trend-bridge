@@ -1,0 +1,41 @@
+{
+  "summary": "A light localization plan focusing on adding contextual text overlays and maximizing the ASMR audio to appeal to the US oddly satisfying and cottagecore niches.",
+  "target_language": "en-US",
+  "suggested_new_title": "Making a zero-waste bamboo cup 🎋",
+  "suggested_new_caption": "The sound of the bamboo peeling is so satisfying 🔊 Wait for the perfect fit at the end!",
+  "suggested_hashtags": [
+    "oddlysatisfying",
+    "cottagecore",
+    "asmr",
+    "zerowaste",
+    "bamboocraft",
+    "craftsmanship"
+  ],
+  "actions": [
+    {
+      "priority": "must",
+      "area": "captions",
+      "action": "Add a brief, fading text overlay at the very beginning (0:00-0:03) that says 'Making a zero-waste cup from scratch 🎋🔊'.",
+      "rationale": "US TikTok audiences typically expect immediate context. A text hook tells them what to expect without ruining the cinematic, slow-living vibe."
+    },
+    {
+      "priority": "must",
+      "area": "music",
+      "action": "Keep the original ASMR audio (scraping and cutting sounds) mixed prominently. If adding a trending background track, set its volume to 5-10% maximum.",
+      "rationale": "The raw, satisfying audio of the tools on the bamboo is the primary driver of engagement for the ASMR and oddly satisfying communities."
+    },
+    {
+      "priority": "should",
+      "area": "hashtags",
+      "action": "Replace the original creator-focused hashtags with niche-specific tags like #oddlysatisfying and #cottagecore.",
+      "rationale": "Shifts the discoverability from creator-recognition (which may be lower in the US mainstream) to highly engaged, established aesthetic communities."
+    },
+    {
+      "priority": "nice",
+      "area": "length",
+      "action": "Maintain the exact 14-second duration and current pacing; do not add an intro or outro.",
+      "rationale": "The short duration naturally encourages looping and high completion rates, which are critical for algorithmic distribution."
+    }
+  ],
+  "estimated_effort": "light"
+}

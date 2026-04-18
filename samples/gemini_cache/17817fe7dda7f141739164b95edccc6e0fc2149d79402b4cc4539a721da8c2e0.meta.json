@@ -1,0 +1,7 @@
+{
+  "model": "gemini-3.1-pro-preview",
+  "schema": "trend_bridge.schemas.ScoringReport",
+  "prompt_hash": "17817fe7dda7f141739164b95edccc6e0fc2149d79402b4cc4539a721da8c2e0",
+  "prompt_excerpt": "# Source video (from bilibili)\nTitle: 嬛嬛，朕emo啦\nCaption: 这里是歌手四郎（歌都是我唱的不是剪辑）全网同名：奶茶小肥仔\nHashtags: 原创扩音计划, 洗脑, 魔性, 甄嬛传, 嬛嬛, emo\nOriginal URL: https://www.bilibili.com/video/BV1BW4y1n7QQ\n\n# Target platfor",
+  "system_prompt_excerpt": "You are a cross-region short-form-video strategist. Given a SOURCE video (from a Chinese SNS platform) and a CORPUS of videos currently trending on a TARGET platform, produce a structured ScoringRepor"
+}
