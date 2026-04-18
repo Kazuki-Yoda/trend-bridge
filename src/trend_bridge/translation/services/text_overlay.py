@@ -149,11 +149,10 @@ def _escape(s: str) -> str:
 
 def apply_text_overlays(
     video_path: str,
-    audio_path: str,
-    srt_path: str,
     overlays: list[dict],
     output_path: str,
     *,
+    audio_path: str | None = None,
     video_width: int = 1280,
     video_height: int = 720,
     font_size: int = 28,
@@ -161,21 +160,17 @@ def apply_text_overlays(
     box_color: str = "black@0.5",
 ) -> str:
     """
-    Combine:
-      - audio swap (dubbed TTS)
-      - EN subtitle burn (from SRT)
-      - EN text overlays replacing ZH on-screen text
-    into a single ffmpeg pass.
+    Burn English text overlays onto on-screen Chinese text.
+    Optionally swap in a dubbed audio track.
     """
     ffmpeg_bin = "/opt/homebrew/opt/ffmpeg-full/bin/ffmpeg"
-    srt_abs = os.path.abspath(srt_path)
 
     # Filter out UI noise, keep meaningful text only
     meaningful = [ov for ov in overlays if _is_meaningful(ov)]
     print(f"  Applying {len(meaningful)}/{len(overlays)} overlays (filtered UI noise)")
 
-    # Build filter chain as lines — written to a script file to avoid arg-length limits
-    filter_lines: list[str] = [f"subtitles={srt_abs}"]
+    # Build filter chain — drawtext only, no subtitle burn
+    filter_lines: list[str] = []
 
     for ov in meaningful:
         x = int(ov["x_pct"] / 100 * video_width)
@@ -194,18 +189,16 @@ def apply_text_overlays(
     with open(script_path, "w") as f:
         f.write(",\n".join(filter_lines))
 
-    result = subprocess.run([
-        ffmpeg_bin, "-y",
-        "-i", os.path.abspath(video_path),
-        "-i", os.path.abspath(audio_path),
-        "-map", "0:v:0",
-        "-map", "1:a:0",
-        "-c:v", "libx264",
-        "-filter_script:v", script_path,
-        "-c:a", "aac",
-        "-shortest",
-        os.path.abspath(output_path),
-    ], capture_output=True)
+    cmd = [ffmpeg_bin, "-y", "-i", os.path.abspath(video_path)]
+    if audio_path:
+        cmd += ["-i", os.path.abspath(audio_path),
+                "-map", "0:v:0", "-map", "1:a:0", "-c:a", "aac", "-shortest"]
+    else:
+        cmd += ["-map", "0:v:0", "-map", "0:a:0", "-c:a", "copy"]
+    cmd += ["-c:v", "libx264", "-filter_script:v", script_path,
+            os.path.abspath(output_path)]
+
+    result = subprocess.run(cmd, capture_output=True)
 
     if result.returncode != 0:
         print("ffmpeg stderr:", result.stderr.decode()[-1000:])
