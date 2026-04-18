@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trend Bridge — Investor Pitch</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: #080c12;
+    color: #e8eaf0;
+    overflow-x: hidden;
+  }
+  .slide {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 80px;
+    position: relative;
+    border-bottom: 1px solid #1a2030;
+  }
+  .slide-inner { width: 100%; max-width: 1100px; }
+  .label {
+    font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+    color: #c9a84c; margin-bottom: 16px; font-weight: 600;
+  }
+  h1 { font-size: 64px; font-weight: 800; line-height: 1.05; letter-spacing: -1.5px; color: #fff; }
+  h2 { font-size: 44px; font-weight: 800; line-height: 1.1; letter-spacing: -1px; color: #fff; margin-bottom: 16px; }
+  .sub { font-size: 18px; color: #8892a4; line-height: 1.5; }
+  .gold { color: #c9a84c; }
+  .slide-num { position: absolute; bottom: 28px; right: 40px; font-size: 11px; color: #2a3545; letter-spacing: 1px; }
+
+  /* badges */
+  .badge {
+    display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 1.5px;
+    padding: 4px 10px; border-radius: 6px; text-transform: uppercase;
+  }
+  .badge-gold { background: rgba(201,168,76,0.15); color: #c9a84c; border: 1px solid rgba(201,168,76,0.35); }
+  .badge-green { background: rgba(76,175,130,0.12); color: #4caf82; border: 1px solid rgba(76,175,130,0.3); }
+  .badge-red { background: rgba(224,92,92,0.12); color: #e05c5c; border: 1px solid rgba(224,92,92,0.3); }
+  .badge-grey { background: rgba(136,146,164,0.1); color: #8892a4; border: 1px solid rgba(136,146,164,0.2); }
+
+  /* phone mockup */
+  .phone {
+    width: 120px; height: 210px; border-radius: 20px;
+    border: 2px solid #2a3545; background: #080c12;
+    display: flex; flex-direction: column; overflow: hidden; flex-shrink: 0;
+  }
+  .phone-screen {
+    flex: 1; background: #131d2e; margin: 6px; border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .phone-home { width: 30px; height: 4px; background: #2a3545; border-radius: 2px; margin: 8px auto; }
+</style>
+</head>
+<body>
+
+<!-- ===== SLIDE 1: HERO ===== -->
+<div class="slide" style="background:#080c12;">
+  <div class="slide-inner">
+    <div class="label">Beta University Hackathon · April 2026</div>
+    <div style="display:flex;align-items:center;gap:20px;margin-bottom:28px;">
+      <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+        <!-- background -->
+        <rect width="64" height="64" rx="16" fill="rgba(201,168,76,0.10)"/>
+        <rect x="1" y="1" width="62" height="62" rx="15" stroke="#c9a84c" stroke-width="1.5" stroke-opacity="0.35"/>
+
+        <!-- signal dots above center (viral trend rising) -->
+        <circle cx="26" cy="11" r="2" fill="#c9a84c" fill-opacity="0.35"/>
+        <circle cx="32" cy="8"  r="2.8" fill="#c9a84c" fill-opacity="0.7"/>
+        <circle cx="38" cy="11" r="2" fill="#c9a84c" fill-opacity="0.35"/>
+
+        <!-- world node LEFT — source market -->
+        <circle cx="6"  cy="46" r="4.5" fill="rgba(201,168,76,0.15)" stroke="#c9a84c" stroke-width="1.5"/>
+        <circle cx="6"  cy="46" r="1.8" fill="#c9a84c"/>
+
+        <!-- world node RIGHT — target market -->
+        <circle cx="58" cy="46" r="4.5" fill="rgba(201,168,76,0.15)" stroke="#c9a84c" stroke-width="1.5"/>
+        <circle cx="58" cy="46" r="1.8" fill="#c9a84c"/>
+
+        <!-- road deck -->
+        <line x1="6" y1="46" x2="58" y2="46" stroke="#c9a84c" stroke-width="2" stroke-linecap="round"/>
+
+        <!-- LEFT TOWER: x=18–22, from deck y=46 up to y=18 -->
+        <rect x="18" y="18" width="4" height="28" rx="2" fill="#c9a84c"/>
+        <!-- tower crossbeam -->
+        <rect x="14" y="23" width="12" height="2.5" rx="1.25" fill="#c9a84c" fill-opacity="0.55"/>
+
+        <!-- RIGHT TOWER: x=42–46 -->
+        <rect x="42" y="18" width="4" height="28" rx="2" fill="#c9a84c"/>
+        <rect x="38" y="23" width="12" height="2.5" rx="1.25" fill="#c9a84c" fill-opacity="0.55"/>
+
+        <!-- main cable: catenary from left tower top (20,18) → control (32,34) → right tower top (44,18) -->
+        <path d="M20 18 Q32 34 44 18" stroke="#c9a84c" stroke-width="2" fill="none" stroke-linecap="round"/>
+
+        <!-- side stays: tower tops to world nodes -->
+        <line x1="20" y1="18" x2="6"  y2="46" stroke="#c9a84c" stroke-width="1.5" stroke-opacity="0.5" stroke-linecap="round"/>
+        <line x1="44" y1="18" x2="58" y2="46" stroke="#c9a84c" stroke-width="1.5" stroke-opacity="0.5" stroke-linecap="round"/>
+
+        <!-- vertical suspenders (hanging from catenary to deck) -->
+        <!-- at t=0.25: x≈25.5, y≈27.5 -->
+        <line x1="25" y1="28" x2="25" y2="46" stroke="#c9a84c" stroke-width="1.2" stroke-opacity="0.4"/>
+        <!-- at t=0.5:  x=32,   y=32 -->
+        <line x1="32" y1="31" x2="32" y2="46" stroke="#c9a84c" stroke-width="1.2" stroke-opacity="0.4"/>
+        <!-- at t=0.75: x≈38.5, y≈27.5 -->
+        <line x1="39" y1="28" x2="39" y2="46" stroke="#c9a84c" stroke-width="1.2" stroke-opacity="0.4"/>
+      </svg>
+      <h1>Trend Bridge</h1>
+    </div>
+    <p style="font-size:24px;color:#e8eaf0;max-width:680px;line-height:1.4;margin-bottom:48px;font-weight:400;">
+      Drop in any video.<br>
+      Get a <span class="gold" style="font-weight:700;">viral fit score</span>, a localization plan,<br>
+      and <span class="gold" style="font-weight:700;">publish cross-border — in 2 minutes.</span>
+    </p>
+    <div style="display:flex;gap:48px;">
+      <div>
+        <div style="font-size:44px;font-weight:800;color:#c9a84c;line-height:1;">$180B</div>
+        <div style="font-size:13px;color:#8892a4;margin-top:4px;">creator economy</div>
+      </div>
+      <div>
+        <div style="font-size:44px;font-weight:800;color:#c9a84c;line-height:1;">0</div>
+        <div style="font-size:13px;color:#8892a4;margin-top:4px;">cross-border fit tools</div>
+      </div>
+      <div>
+        <div style="font-size:44px;font-weight:800;color:#c9a84c;line-height:1;">2min</div>
+        <div style="font-size:13px;color:#8892a4;margin-top:4px;">score + plan + publish</div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-num">01 / 11</div>
+</div>
+
+<!-- ===== SLIDE 2: PROBLEM ===== -->
+<div class="slide" style="background:#090d14;">
+  <div class="slide-inner">
+    <div class="label">The Problem</div>
+    <h2>Great content.<br>Invisible globally.</h2>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;margin-top:40px;">
+
+      <div style="background:#0e1420;border:1px solid #1c2535;border-radius:16px;padding:32px 24px;">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" style="margin-bottom:16px;">
+          <circle cx="20" cy="20" r="16" stroke="#e05c5c" stroke-width="1.5" stroke-opacity="0.4"/>
+          <line x1="20" y1="10" x2="20" y2="22" stroke="#e05c5c" stroke-width="2.5" stroke-linecap="round"/>
+          <circle cx="20" cy="27" r="2" fill="#e05c5c"/>
+        </svg>
+        <div style="font-size:18px;font-weight:700;color:#fff;margin-bottom:8px;">No Signal</div>
+        <div style="font-size:14px;color:#8892a4;line-height:1.6;">Creators guess whether their video will work in a new market. There's no data.</div>
+      </div>
+
+      <div style="background:#0e1420;border:1px solid #1c2535;border-radius:16px;padding:32px 24px;">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" style="margin-bottom:16px;">
+          <rect x="6" y="10" width="28" height="20" rx="4" stroke="#c9a84c" stroke-width="1.5" stroke-opacity="0.4"/>
+          <path d="M12 18 L18 18" stroke="#c9a84c" stroke-width="2" stroke-linecap="round"/>
+          <path d="M12 23 L28 23" stroke="#c9a84c" stroke-width="2" stroke-linecap="round" stroke-opacity="0.3"/>
+          <circle cx="30" cy="10" r="6" fill="#090d14" stroke="#e05c5c" stroke-width="1.5"/>
+          <line x1="28" y1="8" x2="32" y2="12" stroke="#e05c5c" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="32" y1="8" x2="28" y2="12" stroke="#e05c5c" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <div style="font-size:18px;font-weight:700;color:#fff;margin-bottom:8px;">Cultural Blind Spots</div>
+        <div style="font-size:14px;color:#8892a4;line-height:1.6;">Language is 20% of the problem. Pacing, hooks, music — none of it gets addressed.</div>
+      </div>
+
+      <div style="background:#0e1420;border:1px solid #1c2535;border-radius:16px;padding:32px 24px;">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" style="margin-bottom:16px;">
+          <circle cx="14" cy="16" r="7" stroke="#8892a4" stroke-width="1.5"/>
+          <circle cx="26" cy="24" r="7" stroke="#c9a84c" stroke-width="1.5"/>
+          <path d="M20 12 L30 8" stroke="#8892a4" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="3 3"/>
+        </svg>
+        <div style="font-size:18px;font-weight:700;color:#fff;margin-bottom:8px;">Siloed Markets</div>
+        <div style="font-size:14px;color:#8892a4;line-height:1.6;">Trend data from each platform lives separately. No tool maps across regions.</div>
+      </div>
+
+    </div>
+  </div>
+  <div class="slide-num">02 / 11</div>
+</div>
+
+<!-- ===== SLIDE 3: BEFORE / AFTER ===== -->
+<div class="slide" style="background:#080c12;">
+  <div class="slide-inner">
+    <div class="label">Before / After</div>
+    <h2>From source video<br>to <span class="gold">launch-ready</span> in seconds</h2>
+
+    <div style="display:flex;gap:32px;margin-top:48px;align-items:flex-start;">
+
+      <!-- BEFORE phone -->
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:16px;">
+        <div style="font-size:11px;letter-spacing:2px;color:#55606e;text-transform:uppercase;font-weight:600;">Source</div>
+        <!-- phone -->
+        <div style="width:140px;height:240px;border-radius:24px;border:2px solid #2a3545;background:#080c12;display:flex;flex-direction:column;overflow:hidden;flex-shrink:0;">
+          <div style="flex:1;background:#0e1628;margin:7px 7px 0;border-radius:18px 18px 0 0;display:flex;flex-direction:column;justify-content:flex-end;padding:10px;position:relative;">
+            <!-- video placeholder gradient -->
+            <div style="position:absolute;inset:0;background:linear-gradient(160deg,#1a2535 0%,#0e1a2a 100%);border-radius:18px 18px 0 0;"></div>
+            <!-- play icon -->
+            <svg style="position:absolute;top:50%;left:50%;transform:translate(-50%,-60%);" width="32" height="32" viewBox="0 0 32 32" fill="none">
+              <circle cx="16" cy="16" r="14" fill="rgba(0,0,0,0.5)"/>
+              <polygon points="12,10 26,16 12,22" fill="#c9a84c" fill-opacity="0.7"/>
+            </svg>
+            <!-- overlay text -->
+            <div style="position:relative;z-index:1;">
+              <div style="font-size:9px;color:#fff;font-weight:700;margin-bottom:3px;opacity:0.9;">原来的标题...</div>
+              <div style="font-size:8px;color:#8892a4;">#健身 #打卡 #运动</div>
+            </div>
+          </div>
+          <div style="height:28px;display:flex;align-items:center;justify-content:center;">
+            <div style="width:36px;height:4px;background:#2a3545;border-radius:2px;"></div>
+          </div>
+        </div>
+        <!-- platform badge -->
+        <div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:center;">
+          <span class="badge badge-grey">Douyin</span>
+          <span class="badge badge-grey">Bilibili</span>
+          <span class="badge badge-grey">XHS</span>
+        </div>
+        <!-- issues -->
+        <div style="background:#0e1420;border:1px solid #1c2535;border-radius:12px;padding:16px;width:100%;max-width:200px;">
+          <div style="font-size:11px;color:#e05c5c;font-weight:600;margin-bottom:8px;letter-spacing:1px;">BLOCKED</div>
+          <div style="font-size:12px;color:#8892a4;line-height:1.6;">Wrong language<br>Wrong music<br>Wrong hook<br>Wrong length</div>
+        </div>
+      </div>
+
+      <!-- Arrow + AI -->
+      <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding-top:80px;gap:12px;min-width:140px;">
+        <div style="background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.25);border-radius:12px;padding:12px 16px;text-align:center;">
+          <div style="font-size:10px;letter-spacing:2px;color:#c9a84c;font-weight:600;margin-bottom:4px;">TREND BRIDGE</div>
+          <div style="font-size:11px;color:#8892a4;">Gemini Multimodal</div>
+          <div style="font-size:11px;color:#8892a4;">AI Analysis</div>
+        </div>
+        <svg width="24" height="40" viewBox="0 0 24 40" fill="none">
+          <path d="M12 0 L12 32" stroke="#c9a84c" stroke-width="2"/>
+          <polygon points="5,28 12,40 19,28" fill="#c9a84c"/>
+        </svg>
+        <div style="font-size:11px;color:#c9a84c;text-align:center;font-weight:600;">Score<br>Plan<br>Generate</div>
+      </div>
+
+      <!-- AFTER phone -->
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:16px;">
+        <div style="font-size:11px;letter-spacing:2px;color:#4caf82;text-transform:uppercase;font-weight:600;">Localized</div>
+        <div style="width:140px;height:240px;border-radius:24px;border:2px solid rgba(201,168,76,0.4);background:#080c12;display:flex;flex-direction:column;overflow:hidden;flex-shrink:0;box-shadow:0 0 30px rgba(201,168,76,0.1);">
+          <div style="flex:1;background:#1a2230;margin:7px 7px 0;border-radius:18px 18px 0 0;display:flex;flex-direction:column;justify-content:flex-end;padding:10px;position:relative;">
+            <div style="position:absolute;inset:0;background:linear-gradient(160deg,#1e2d40 0%,#141e2e 100%);border-radius:18px 18px 0 0;"></div>
+            <svg style="position:absolute;top:50%;left:50%;transform:translate(-50%,-60%);" width="32" height="32" viewBox="0 0 32 32" fill="none">
+              <circle cx="16" cy="16" r="14" fill="rgba(0,0,0,0.5)"/>
+              <polygon points="12,10 26,16 12,22" fill="#c9a84c"/>
+            </svg>
+            <div style="position:relative;z-index:1;">
+              <div style="font-size:9px;color:#fff;font-weight:700;margin-bottom:3px;">Day 1 vs Day 90 challenge</div>
+              <div style="font-size:8px;color:#c9a84c;">#gymtok #fitcheck #gains</div>
+            </div>
+          </div>
+          <div style="height:28px;display:flex;align-items:center;justify-content:center;">
+            <div style="width:36px;height:4px;background:#2a3545;border-radius:2px;"></div>
+          </div>
+        </div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:center;">
+          <span class="badge badge-gold">TikTok US</span>
+          <span class="badge badge-green">78 / 100</span>
+        </div>
+        <div style="background:#0e1420;border:1px solid rgba(201,168,76,0.25);border-radius:12px;padding:16px;width:100%;max-width:200px;">
+          <div style="font-size:11px;color:#4caf82;font-weight:600;margin-bottom:8px;letter-spacing:1px;">READY</div>
+          <div style="font-size:12px;color:#8892a4;line-height:1.6;">EN-US captions<br>Royalty-free music<br>Viral hook<br>Trimmed to 30s</div>
+        </div>
+      </div>
+
+      <!-- Divider -->
+      <div style="width:1px;background:#1c2535;align-self:stretch;margin:0 8px;"></div>
+
+      <!-- Metadata + Publish panel -->
+      <div style="flex:1.4;display:flex;flex-direction:column;gap:12px;padding-top:32px;">
+        <div style="font-size:11px;letter-spacing:2px;color:#c9a84c;text-transform:uppercase;font-weight:600;margin-bottom:4px;">Full Package — Ready to Ship</div>
+
+        <div style="background:#0e1420;border:1px solid #1c2535;border-radius:12px;padding:14px 16px;">
+          <div style="font-size:10px;color:#55606e;letter-spacing:1px;margin-bottom:4px;">TITLE</div>
+          <div style="font-size:13px;color:#e8eaf0;">Day 1 vs Day 90 — The Gym Glow-Up</div>
+        </div>
+        <div style="background:#0e1420;border:1px solid #1c2535;border-radius:12px;padding:14px 16px;">
+          <div style="font-size:10px;color:#55606e;letter-spacing:1px;margin-bottom:4px;">CAPTION</div>
+          <div style="font-size:13px;color:#e8eaf0;line-height:1.5;">Started weak, stayed consistent. Follow for week 2 results.</div>
+        </div>
+        <div style="background:#0e1420;border:1px solid #1c2535;border-radius:12px;padding:14px 16px;">
+          <div style="font-size:10px;color:#55606e;letter-spacing:1px;margin-bottom:6px;">HASHTAGS</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;">
+            <span style="font-size:11px;color:#c9a84c;">#gymtok</span>
+            <span style="font-size:11px;color:#c9a84c;">#fitcheck</span>
+            <span style="font-size:11px;color:#c9a84c;">#gains</span>
+            <span style="font-size:11px;color:#c9a84c;">#transformationcheck</span>
+          </div>
+        </div>
+        <div style="background:#0e1420;border:1px solid #1c2535;border-radius:12px;padding:14px 16px;">
+          <div style="font-size:10px;color:#55606e;letter-spacing:1px;margin-bottom:4px;">LOCALIZED VIDEO</div>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect width="14" height="14" rx="3" fill="#4caf82" fill-opacity="0.2"/><polyline points="3,7 6,10 11,4" stroke="#4caf82" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span style="font-size:13px;color:#4caf82;">Generated · ready to download</span>
+          </div>
+        </div>
+
+        <!-- One-click publish button -->
+        <div style="margin-top:4px;background:linear-gradient(135deg,rgba(201,168,76,0.2),rgba(201,168,76,0.08));border:1.5px solid rgba(201,168,76,0.5);border-radius:14px;padding:18px 20px;display:flex;align-items:center;gap:14px;cursor:pointer;">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" style="flex-shrink:0;">
+            <circle cx="16" cy="16" r="14" fill="rgba(201,168,76,0.15)" stroke="#c9a84c" stroke-width="1.5"/>
+            <path d="M10 16 L22 16 M18 11 L22 16 L18 21" stroke="#c9a84c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <div>
+            <div style="font-size:15px;font-weight:800;color:#c9a84c;">Publish to TikTok-US</div>
+            <div style="font-size:11px;color:#8892a4;margin-top:2px;">One click · full metadata pre-filled</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div class="slide-num">03 / 11</div>
+</div>
+
+<!-- ===== SLIDE 4: LIVE DEMO ===== -->
+<div class="slide" style="background:#080c12;">
+  <div class="slide-inner">
+    <div class="label">Live Demo</div>
+    <h2>See it. Hear the difference.</h2>
+    <p class="sub" style="margin-bottom:40px;">Same video. Original Chinese audio vs. AI-dubbed English — voice cloned from the creator. Generated in under 2 minutes.</p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start;">
+
+      <!-- Original -->
+      <div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+          <div style="width:8px;height:8px;border-radius:50%;background:#8892a4;"></div>
+          <span style="font-size:12px;letter-spacing:2px;color:#8892a4;text-transform:uppercase;font-weight:600;">Original — Chinese</span>
+        </div>
+        <div style="border-radius:16px;overflow:hidden;border:2px solid #1c2535;background:#0e1420;">
+          <video
+            controls
+            style="width:100%;display:block;"
+            src="file:///Users/bytedance/trend-bridge/tmp/demo/video.mp4"
+          ></video>
+        </div>
+        <div style="margin-top:12px;padding:12px 16px;background:#0e1420;border:1px solid #1c2535;border-radius:10px;display:flex;gap:12px;flex-wrap:wrap;">
+          <span class="badge badge-grey">Mandarin audio</span>
+          <span class="badge badge-grey">Chinese captions</span>
+          <span class="badge badge-grey">CN platform</span>
+        </div>
+      </div>
+
+      <!-- Localized -->
+      <div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+          <div style="width:8px;height:8px;border-radius:50%;background:#c9a84c;"></div>
+          <span style="font-size:12px;letter-spacing:2px;color:#c9a84c;text-transform:uppercase;font-weight:600;">Localized — English (AI dubbed)</span>
+        </div>
+        <div style="border-radius:16px;overflow:hidden;border:2px solid rgba(201,168,76,0.4);background:#0e1420;box-shadow:0 0 40px rgba(201,168,76,0.08);">
+          <video
+            controls
+            style="width:100%;display:block;"
+            src="file:///Users/bytedance/trend-bridge/tmp/demo/dubbed_en_final.mp4"
+          ></video>
+        </div>
+        <div style="margin-top:12px;padding:12px 16px;background:#0e1420;border:1px solid rgba(201,168,76,0.2);border-radius:10px;display:flex;gap:12px;flex-wrap:wrap;">
+          <span class="badge badge-gold">English audio</span>
+          <span class="badge badge-gold">Voice cloned</span>
+          <span class="badge badge-green">TikTok-US ready</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- bottom callout -->
+    <div style="margin-top:28px;display:flex;gap:20px;justify-content:center;">
+      <div style="display:flex;align-items:center;gap:8px;padding:12px 20px;background:#0e1420;border:1px solid #1c2535;border-radius:10px;">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="#c9a84c" stroke-width="1.5"/><path d="M6 8 L10 8 M8 6 L8 10" stroke="#c9a84c" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <span style="font-size:13px;color:#8892a4;">Creator's voice preserved — not a generic TTS</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;padding:12px 20px;background:#0e1420;border:1px solid #1c2535;border-radius:10px;">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="#c9a84c" stroke-width="1.5"/><path d="M6 8 L10 8 M8 6 L8 10" stroke="#c9a84c" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <span style="font-size:13px;color:#8892a4;">Lip-sync preserved · timing matched to original cuts</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;padding:12px 20px;background:#0e1420;border:1px solid #1c2535;border-radius:10px;">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="#c9a84c" stroke-width="1.5"/><path d="M6 8 L10 8 M8 6 L8 10" stroke="#c9a84c" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <span style="font-size:13px;color:#8892a4;">Fully automated — no human editor in the loop</span>
+      </div>
+    </div>
+
+  </div>
+  <div class="slide-num">04 / 11</div>
+</div>
+
+<!-- ===== SLIDE 4: HOW IT WORKS ===== -->
+<div class="slide" style="background:#090d14;">
+  <div class="slide-inner">
+    <div class="label">How It Works</div>
+    <h2>Two AI calls.<br>Complete cross-border strategy.</h2>
+
+    <svg viewBox="0 0 1060 300" style="width:100%;max-width:1060px;margin-top:40px;" fill="none">
+      <!-- Trend Corpus D -->
+      <rect x="0" y="30" width="190" height="220" rx="14" fill="#0e1420" stroke="#1c2535" stroke-width="1.5"/>
+      <text x="95" y="22" fill="#55606e" font-size="10" font-family="system-ui" text-anchor="middle" letter-spacing="2" font-weight="600">TREND CORPUS</text>
+      <text x="95" y="64" fill="#8892a4" font-size="12" font-family="system-ui" text-anchor="middle" font-weight="600">Regional Insight</text>
+      <text x="95" y="82" fill="#55606e" font-size="11" font-family="system-ui" text-anchor="middle">Any market · Any platform</text>
+      <rect x="14" y="96" width="162" height="20" rx="5" fill="#080c12"/>
+      <text x="95" y="110" fill="#55606e" font-size="11" font-family="monospace" text-anchor="middle">hook_style · pacing</text>
+      <rect x="14" y="122" width="162" height="20" rx="5" fill="#080c12"/>
+      <text x="95" y="136" fill="#55606e" font-size="11" font-family="monospace" text-anchor="middle">audio_style · format</text>
+      <rect x="14" y="148" width="162" height="20" rx="5" fill="#080c12"/>
+      <text x="95" y="162" fill="#55606e" font-size="11" font-family="monospace" text-anchor="middle">emotional_tone · niche</text>
+      <rect x="14" y="182" width="162" height="52" rx="8" fill="rgba(201,168,76,0.06)" stroke="rgba(201,168,76,0.2)" stroke-width="1"/>
+      <text x="95" y="202" fill="#c9a84c" font-size="11" font-family="system-ui" text-anchor="middle">Synthetic today.</text>
+      <text x="95" y="218" fill="#c9a84c" font-size="11" font-family="system-ui" text-anchor="middle">Live ingestion next.</text>
+      <!-- arrow -->
+      <path d="M190 140 L228 140" stroke="#2a3545" stroke-width="2" stroke-dasharray="5 4"/>
+      <polygon points="228,135 240,140 228,145" fill="#2a3545"/>
+
+      <!-- Source video -->
+      <rect x="240" y="60" width="150" height="160" rx="14" fill="#0e1420" stroke="#1c2535" stroke-width="1.5"/>
+      <text x="315" y="52" fill="#8892a4" font-size="10" font-family="system-ui" text-anchor="middle" letter-spacing="2" font-weight="600">SOURCE</text>
+      <!-- phone shape -->
+      <rect x="278" y="74" width="74" height="126" rx="10" fill="#080c12" stroke="#2a3545" stroke-width="1.5"/>
+      <rect x="282" y="78" width="66" height="108" rx="7" fill="#131d2e"/>
+      <polygon points="304,124 340,132 304,140" fill="#c9a84c" fill-opacity="0.5"/>
+      <circle cx="315" cy="206" r="4" fill="#2a3545"/>
+      <!-- arrow -->
+      <path d="M390 140 L428 140" stroke="#c9a84c" stroke-width="2"/>
+      <polygon points="428,135 440,140 428,145" fill="#c9a84c"/>
+
+      <!-- Scorer A -->
+      <rect x="440" y="30" width="170" height="220" rx="14" fill="#0e1420" stroke="rgba(201,168,76,0.4)" stroke-width="1.5"/>
+      <text x="525" y="22" fill="#c9a84c" font-size="10" font-family="system-ui" text-anchor="middle" letter-spacing="2" font-weight="600">SCORER  (Call 1)</text>
+      <rect x="458" y="46" width="134" height="24" rx="7" fill="rgba(201,168,76,0.1)" stroke="rgba(201,168,76,0.3)" stroke-width="1"/>
+      <text x="525" y="63" fill="#c9a84c" font-size="11" font-family="system-ui" text-anchor="middle" font-weight="700">Gemini Multimodal</text>
+      <text x="525" y="94" fill="#ffffff" font-size="20" font-family="system-ui" text-anchor="middle" font-weight="800">fit_score: 78</text>
+      <line x1="458" y1="106" x2="592" y2="106" stroke="#1c2535" stroke-width="1"/>
+      <text x="525" y="124" fill="#8892a4" font-size="12" font-family="system-ui" text-anchor="middle">trend pattern matches</text>
+      <text x="525" y="144" fill="#8892a4" font-size="12" font-family="system-ui" text-anchor="middle">cultural flags</text>
+      <text x="525" y="164" fill="#8892a4" font-size="12" font-family="system-ui" text-anchor="middle">hook analysis</text>
+      <text x="525" y="184" fill="#8892a4" font-size="12" font-family="system-ui" text-anchor="middle">verdict</text>
+      <line x1="458" y1="196" x2="592" y2="196" stroke="#1c2535" stroke-width="1"/>
+      <text x="525" y="232" fill="#4caf82" font-size="13" font-family="monospace" text-anchor="middle" font-weight="700">ScoringReport</text>
+      <!-- arrow -->
+      <path d="M610 140 L648 140" stroke="#c9a84c" stroke-width="2"/>
+      <polygon points="648,135 660,140 648,145" fill="#c9a84c"/>
+
+      <!-- Localizer L -->
+      <rect x="660" y="30" width="170" height="220" rx="14" fill="#0e1420" stroke="rgba(201,168,76,0.4)" stroke-width="1.5"/>
+      <text x="745" y="22" fill="#c9a84c" font-size="10" font-family="system-ui" text-anchor="middle" letter-spacing="2" font-weight="600">LOCALIZER  (Call 2)</text>
+      <rect x="678" y="46" width="134" height="24" rx="7" fill="rgba(201,168,76,0.1)" stroke="rgba(201,168,76,0.3)" stroke-width="1"/>
+      <text x="745" y="63" fill="#c9a84c" font-size="11" font-family="system-ui" text-anchor="middle" font-weight="700">Gemini Multimodal</text>
+      <text x="745" y="94" fill="#ffffff" font-size="14" font-family="system-ui" text-anchor="middle" font-weight="800">LocalizationPlan</text>
+      <line x1="678" y1="106" x2="812" y2="106" stroke="#1c2535" stroke-width="1"/>
+      <text x="745" y="124" fill="#8892a4" font-size="12" font-family="system-ui" text-anchor="middle">new title + caption</text>
+      <text x="745" y="144" fill="#8892a4" font-size="12" font-family="system-ui" text-anchor="middle">hashtags</text>
+      <text x="745" y="164" fill="#8892a4" font-size="12" font-family="system-ui" text-anchor="middle">prioritized actions</text>
+      <text x="745" y="184" fill="#8892a4" font-size="12" font-family="system-ui" text-anchor="middle">estimated effort</text>
+      <line x1="678" y1="196" x2="812" y2="196" stroke="#1c2535" stroke-width="1"/>
+      <text x="745" y="232" fill="#4caf82" font-size="13" font-family="monospace" text-anchor="middle" font-weight="700">+ Video Generation</text>
+      <!-- arrow -->
+      <path d="M830 140 L868 140" stroke="#c9a84c" stroke-width="2"/>
+      <polygon points="868,135 880,140 868,145" fill="#c9a84c"/>
+
+      <!-- Output -->
+      <rect x="880" y="50" width="180" height="180" rx="14" fill="rgba(201,168,76,0.06)" stroke="rgba(201,168,76,0.4)" stroke-width="1.5"/>
+      <text x="970" y="42" fill="#c9a84c" font-size="10" font-family="system-ui" text-anchor="middle" letter-spacing="2" font-weight="600">PUBLISH</text>
+      <rect x="896" y="66" width="148" height="32" rx="8" fill="rgba(201,168,76,0.15)" stroke="rgba(201,168,76,0.4)"/>
+      <text x="970" y="87" fill="#c9a84c" font-size="18" font-family="system-ui" text-anchor="middle" font-weight="800">78 / 100</text>
+      <text x="970" y="118" fill="#e8eaf0" font-size="12" font-family="system-ui" text-anchor="middle">Title + Caption + Tags</text>
+      <text x="970" y="138" fill="#e8eaf0" font-size="12" font-family="system-ui" text-anchor="middle">Localized Video</text>
+      <rect x="896" y="154" width="148" height="36" rx="10" fill="rgba(201,168,76,0.2)" stroke="rgba(201,168,76,0.5)" stroke-width="1.5"/>
+      <text x="970" y="177" fill="#c9a84c" font-size="14" font-family="system-ui" text-anchor="middle" font-weight="800">One-Click Publish</text>
+
+      <!-- raw video also to L note -->
+      <path d="M315 220 Q315 270 745 265 L745 250" stroke="#1c2535" stroke-width="1.5" stroke-dasharray="4 4"/>
+      <text x="530" y="288" fill="#2a3545" font-size="10" font-family="system-ui" text-anchor="middle">raw video bytes flow to both A and L — both stages see the pixels</text>
+    </svg>
+  </div>
+  <div class="slide-num">05 / 11</div>
+</div>
+
+<!-- ===== SLIDE 5: CUSTOMERS ===== -->
+<div class="slide" style="background:#080c12;">
+  <div class="slide-inner">
+    <div class="label">Who We Serve</div>
+    <h2>Three customers.<br>One broken problem.</h2>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;margin-top:40px;">
+
+      <!-- Creator -->
+      <div style="background:#0e1420;border:1px solid #1c2535;border-radius:20px;padding:32px 28px;display:flex;flex-direction:column;gap:20px;">
+        <svg width="52" height="52" viewBox="0 0 52 52" fill="none">
+          <circle cx="26" cy="18" r="10" stroke="#c9a84c" stroke-width="2"/>
+          <path d="M8 44 C8 34 44 34 44 44" stroke="#c9a84c" stroke-width="2" stroke-linecap="round"/>
+          <!-- phone in hand -->
+          <rect x="32" y="28" width="14" height="20" rx="3" fill="rgba(201,168,76,0.1)" stroke="#c9a84c" stroke-width="1.5"/>
+          <line x1="35" y1="32" x2="43" y2="32" stroke="#c9a84c" stroke-width="1" stroke-opacity="0.5"/>
+          <line x1="35" y1="35" x2="43" y2="35" stroke="#c9a84c" stroke-width="1" stroke-opacity="0.5"/>
+        </svg>
+        <div>
+          <div style="font-size:22px;font-weight:800;color:#fff;margin-bottom:6px;">Solo Creator</div>
+          <div style="font-size:13px;color:#c9a84c;font-weight:600;margin-bottom:16px;">100k+ followers on Douyin / XHS / Bilibili</div>
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <div style="width:6px;height:6px;border-radius:50%;background:#c9a84c;margin-top:5px;flex-shrink:0;"></div>
+              <div style="font-size:14px;color:#8892a4;line-height:1.5;">Wants global reach but doesn't know where to start</div>
+            </div>
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <div style="width:6px;height:6px;border-radius:50%;background:#c9a84c;margin-top:5px;flex-shrink:0;"></div>
+              <div style="font-size:14px;color:#8892a4;line-height:1.5;">No budget for a localization agency</div>
+            </div>
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <div style="width:6px;height;6px;border-radius:50%;background:#c9a84c;margin-top:5px;flex-shrink:0;"></div>
+              <div style="font-size:14px;color:#8892a4;line-height:1.5;">Needs a score + plan + publish in minutes, not weeks</div>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:auto;padding:14px 16px;background:rgba(201,168,76,0.06);border:1px solid rgba(201,168,76,0.15);border-radius:12px;">
+          <div style="font-size:12px;color:#55606e;margin-bottom:4px;font-style:italic;">"Will my gym video work on TikTok-US?"</div>
+          <div style="font-size:13px;color:#c9a84c;font-weight:600;">Answer in 6 seconds.</div>
+        </div>
+      </div>
+
+      <!-- MCN -->
+      <div style="background:#0e1420;border:1px solid rgba(201,168,76,0.3);border-radius:20px;padding:32px 28px;display:flex;flex-direction:column;gap:20px;position:relative;">
+        <div style="position:absolute;top:-12px;left:24px;background:rgba(201,168,76,0.15);border:1px solid rgba(201,168,76,0.4);color:#c9a84c;font-size:10px;font-weight:800;padding:4px 12px;border-radius:6px;letter-spacing:1px;">PRIMARY TARGET</div>
+        <svg width="52" height="52" viewBox="0 0 52 52" fill="none">
+          <!-- building / agency icon -->
+          <rect x="6" y="20" width="40" height="26" rx="4" stroke="#c9a84c" stroke-width="2"/>
+          <rect x="14" y="28" width="8" height="8" rx="2" fill="rgba(201,168,76,0.2)" stroke="#c9a84c" stroke-width="1.5"/>
+          <rect x="30" y="28" width="8" height="8" rx="2" fill="rgba(201,168,76,0.2)" stroke="#c9a84c" stroke-width="1.5"/>
+          <rect x="20" y="34" width="12" height="12" rx="2" fill="rgba(201,168,76,0.15)" stroke="#c9a84c" stroke-width="1.5"/>
+          <path d="M26 20 L26 8 L14 14 L26 20 L38 14 L26 8" stroke="#c9a84c" stroke-width="1.5" stroke-linejoin="round" fill="none"/>
+        </svg>
+        <div>
+          <div style="font-size:22px;font-weight:800;color:#fff;margin-bottom:6px;">MCN Agency</div>
+          <div style="font-size:13px;color:#c9a84c;font-weight:600;margin-bottom:16px;">Managing 50–500 creators across regions</div>
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <div style="width:6px;height:6px;border-radius:50%;background:#c9a84c;margin-top:5px;flex-shrink:0;"></div>
+              <div style="font-size:14px;color:#8892a4;line-height:1.5;">Screens entire catalog for cross-border potential</div>
+            </div>
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <div style="width:6px;height:6px;border-radius:50%;background:#c9a84c;margin-top:5px;flex-shrink:0;"></div>
+              <div style="font-size:14px;color:#8892a4;line-height:1.5;">Prioritizes which creators to invest in globally</div>
+            </div>
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <div style="width:6px;height:6px;border-radius:50%;background:#c9a84c;margin-top:5px;flex-shrink:0;"></div>
+              <div style="font-size:14px;color:#8892a4;line-height:1.5;">Runs batch scoring across hundreds of videos per week</div>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:auto;padding:14px 16px;background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.25);border-radius:12px;">
+          <div style="font-size:12px;color:#55606e;margin-bottom:4px;font-style:italic;">"Which 10 of our 500 videos should we push globally this week?"</div>
+          <div style="font-size:13px;color:#c9a84c;font-weight:600;">Ranked list. Instantly.</div>
+        </div>
+      </div>
+
+      <!-- Brand Studio -->
+      <div style="background:#0e1420;border:1px solid #1c2535;border-radius:20px;padding:32px 28px;display:flex;flex-direction:column;gap:20px;">
+        <svg width="52" height="52" viewBox="0 0 52 52" fill="none">
+          <!-- globe -->
+          <circle cx="26" cy="26" r="18" stroke="#c9a84c" stroke-width="2"/>
+          <ellipse cx="26" cy="26" rx="8" ry="18" stroke="#c9a84c" stroke-width="1.5"/>
+          <line x1="8" y1="26" x2="44" y2="26" stroke="#c9a84c" stroke-width="1.5"/>
+          <line x1="10" y1="18" x2="42" y2="18" stroke="#c9a84c" stroke-width="1" stroke-opacity="0.4"/>
+          <line x1="10" y1="34" x2="42" y2="34" stroke="#c9a84c" stroke-width="1" stroke-opacity="0.4"/>
+          <!-- pin -->
+          <circle cx="38" cy="14" r="5" fill="rgba(201,168,76,0.2)" stroke="#c9a84c" stroke-width="1.5"/>
+          <line x1="38" y1="19" x2="38" y2="24" stroke="#c9a84c" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <div>
+          <div style="font-size:22px;font-weight:800;color:#fff;margin-bottom:6px;">Brand Studio</div>
+          <div style="font-size:13px;color:#c9a84c;font-weight:600;margin-bottom:16px;">Global brands running regional campaigns</div>
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <div style="width:6px;height:6px;border-radius:50%;background:#c9a84c;margin-top:5px;flex-shrink:0;"></div>
+              <div style="font-size:14px;color:#8892a4;line-height:1.5;">Adapts ad campaigns across markets without re-shooting</div>
+            </div>
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <div style="width:6px;height:6px;border-radius:50%;background:#c9a84c;margin-top:5px;flex-shrink:0;"></div>
+              <div style="font-size:14px;color:#8892a4;line-height:1.5;">Validates cultural fit before spending on paid distribution</div>
+            </div>
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <div style="width:6px;height:6px;border-radius:50%;background:#c9a84c;margin-top:5px;flex-shrink:0;"></div>
+              <div style="font-size:14px;color:#8892a4;line-height:1.5;">Gets a localized asset + metadata ready for platform upload</div>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:auto;padding:14px 16px;background:rgba(201,168,76,0.06);border:1px solid rgba(201,168,76,0.15);border-radius:12px;">
+          <div style="font-size:12px;color:#55606e;margin-bottom:4px;font-style:italic;">"Will this campaign land in the US the same way it did in Korea?"</div>
+          <div style="font-size:13px;color:#c9a84c;font-weight:600;">Score it before you spend.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="slide-num">06 / 11</div>
+</div>
+
+<!-- ===== SLIDE 6: IMPACT STATEMENT ===== -->
+<div class="slide" style="background:#080c12;justify-content:center;">
+  <div style="text-align:center;max-width:900px;">
+
+    <!-- creator faces row -->
+    <div style="display:flex;justify-content:center;gap:-8px;margin-bottom:48px;">
+      <div style="display:flex;gap:0;">
+        <!-- avatar circles with channel names -->
+        <div style="width:56px;height:56px;border-radius:50%;border:2px solid #1c2535;background:#0e1420;display:flex;align-items:center;justify-content:center;font-size:10px;color:#55606e;text-align:center;margin-right:-12px;z-index:5;">飓风</div>
+        <div style="width:56px;height:56px;border-radius:50%;border:2px solid #1c2535;background:#0e1420;display:flex;align-items:center;justify-content:center;font-size:10px;color:#55606e;text-align:center;margin-right:-12px;z-index:4;">番茄</div>
+        <div style="width:56px;height:56px;border-radius:50%;border:2px solid #1c2535;background:#0e1420;display:flex;align-items:center;justify-content:center;font-size:10px;color:#55606e;text-align:center;margin-right:-12px;z-index:3;">木鱼</div>
+        <div style="width:56px;height:56px;border-radius:50%;border:2px solid #1c2535;background:#0e1420;display:flex;align-items:center;justify-content:center;font-size:10px;color:#55606e;text-align:center;margin-right:-12px;z-index:2;">何同</div>
+        <div style="width:56px;height:56px;border-radius:50%;border:2px solid #1c2535;background:#0e1420;display:flex;align-items:center;justify-content:center;font-size:10px;color:#55606e;text-align:center;z-index:1;">潮院</div>
+      </div>
+      <!-- arrow -->
+      <div style="display:flex;align-items:center;margin:0 24px;">
+        <svg width="48" height="20" viewBox="0 0 48 20" fill="none">
+          <path d="M0 10 L36 10" stroke="#c9a84c" stroke-width="2"/>
+          <polygon points="36,5 48,10 36,15" fill="#c9a84c"/>
+        </svg>
+      </div>
+      <!-- 50x badge -->
+      <div style="display:flex;align-items:center;gap:16px;">
+        <div style="background:rgba(201,168,76,0.12);border:2px solid rgba(201,168,76,0.4);border-radius:16px;padding:10px 24px;">
+          <span style="font-size:36px;font-weight:900;color:#c9a84c;letter-spacing:-1px;">50×</span>
+          <span style="font-size:14px;color:#c9a84c;margin-left:4px;">more revenue</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- main statement -->
+    <div style="font-size:72px;font-weight:900;color:#ffffff;line-height:1.0;letter-spacing:-3px;margin-bottom:24px;">
+      Same creator.<br>
+      <span style="color:#c9a84c;">50× more revenue.</span>
+    </div>
+    <div style="font-size:24px;color:#8892a4;margin-bottom:56px;font-weight:400;">
+      The audience is already there. They just can't reach it.
+    </div>
+
+    <!-- proof: li ziqi vs average -->
+    <div style="display:inline-flex;gap:0;border:1px solid #1c2535;border-radius:16px;overflow:hidden;">
+      <div style="padding:24px 40px;border-right:1px solid #1c2535;text-align:center;">
+        <div style="font-size:11px;letter-spacing:2px;color:#55606e;text-transform:uppercase;margin-bottom:8px;">Average top CN creator</div>
+        <div style="font-size:32px;font-weight:800;color:#e05c5c;line-height:1;">1–6%</div>
+        <div style="font-size:12px;color:#55606e;margin-top:4px;">of Bilibili audience on YouTube</div>
+      </div>
+      <div style="padding:24px 40px;text-align:center;background:rgba(201,168,76,0.04);">
+        <div style="font-size:11px;letter-spacing:2px;color:#c9a84c;text-transform:uppercase;margin-bottom:8px;">李子柒 — localized well</div>
+        <div style="font-size:32px;font-weight:800;color:#c9a84c;line-height:1;">~100%</div>
+        <div style="font-size:12px;color:#8892a4;margin-top:4px;">Bilibili 20M → YouTube 20M</div>
+      </div>
+    </div>
+
+    <!-- two angles -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:40px;max-width:800px;margin-left:auto;margin-right:auto;">
+      <div style="background:#0e1420;border:1px solid #1c2535;border-radius:14px;padding:20px 24px;text-align:left;">
+        <div style="font-size:11px;letter-spacing:2px;color:#8892a4;text-transform:uppercase;font-weight:600;margin-bottom:10px;">Angle 1</div>
+        <div style="font-size:16px;font-weight:700;color:#fff;margin-bottom:6px;">Big creator, small global reach</div>
+        <div style="font-size:13px;color:#8892a4;line-height:1.6;">影视飓风 has 14M fans. Their YouTube is 849K. We localize — they scale globally.</div>
+      </div>
+      <div style="background:#0e1420;border:1px solid rgba(201,168,76,0.3);border-radius:14px;padding:20px 24px;text-align:left;">
+        <div style="font-size:11px;letter-spacing:2px;color:#c9a84c;text-transform:uppercase;font-weight:600;margin-bottom:10px;">Angle 2 — Hidden Gems</div>
+        <div style="font-size:16px;font-weight:700;color:#fff;margin-bottom:6px;">Niche locally. Viral globally.</div>
+        <div style="font-size:13px;color:#8892a4;line-height:1.6;">Some content doesn't perform at home but is perfectly timed for a foreign market. We find them. We bridge them. Like Li Ziqi — before anyone knew her name.</div>
+      </div>
+    </div>
+
+    <div style="margin-top:24px;font-size:12px;color:#2a3545;">
+      Data: Bilibili public stats · ZeroRoku 2026-04-11 · Wikipedia top-Bili list 2025-09-16
+    </div>
+  </div>
+  <div class="slide-num">07 / 11</div>
+</div>
+
+<!-- ===== SLIDE 6: REVENUE OPPORTUNITY ===== -->
+<div class="slide" style="background:#090d14;">
+  <div class="slide-inner">
+    <div class="label">The Revenue Gap</div>
+    <h2>The audience exists.<br><span class="gold">We unlock the revenue.</span></h2>
+
+    <!-- bar chart: Bilibili vs YouTube -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:40px;align-items:start;">
+
+      <!-- left: chart -->
+      <div style="background:#0e1420;border:1px solid #1c2535;border-radius:20px;padding:28px;">
+        <div style="font-size:11px;letter-spacing:2px;color:#c9a84c;text-transform:uppercase;font-weight:600;margin-bottom:24px;">Followers: Bilibili vs YouTube</div>
+
+        <!-- creators -->
+        <div style="display:flex;flex-direction:column;gap:14px;">
+
+          <!-- Li Ziqi benchmark -->
+          <div>
+            <div style="display:flex;justify-content:space-between;margin-bottom:5px;">
+              <span style="font-size:13px;color:#c9a84c;font-weight:700;">李子柒 (Li Ziqi)</span>
+              <span style="font-size:11px;color:#c9a84c;font-weight:600;">~100% transfer ★</span>
+            </div>
+            <div style="position:relative;height:10px;background:#131d2e;border-radius:5px;margin-bottom:3px;">
+              <div style="width:100%;height:100%;background:#c9a84c;border-radius:5px;opacity:0.4;"></div>
+            </div>
+            <div style="position:relative;height:10px;background:#131d2e;border-radius:5px;">
+              <div style="width:100%;height:100%;background:#c9a84c;border-radius:5px;"></div>
+            </div>
+            <div style="display:flex;justify-content:space-between;margin-top:3px;">
+              <span style="font-size:10px;color:#55606e;">Bili ~20M</span>
+              <span style="font-size:10px;color:#c9a84c;">YouTube ~20M (100% transfer)</span>
+            </div>
+          </div>
+
+          <div style="height:1px;background:#1c2535;"></div>
+
+          <!-- 影视飓风 -->
+          <div>
+            <div style="display:flex;justify-content:space-between;margin-bottom:5px;">
+              <span style="font-size:13px;color:#e8eaf0;">影视飓风</span>
+              <span style="font-size:11px;color:#55606e;">5.8% transfer</span>
+            </div>
+            <div style="position:relative;height:10px;background:#131d2e;border-radius:5px;margin-bottom:3px;">
+              <div style="width:74%;height:100%;background:#8892a4;border-radius:5px;opacity:0.3;"></div>
+            </div>
+            <div style="position:relative;height:10px;background:#131d2e;border-radius:5px;">
+              <div style="width:4.3%;height:100%;background:#e05c5c;border-radius:5px;"></div>
+            </div>
+            <div style="display:flex;justify-content:space-between;margin-top:3px;">
+              <span style="font-size:10px;color:#55606e;">Bili 14.76M</span>
+              <span style="font-size:10px;color:#e05c5c;">YT 849K</span>
+            </div>
+          </div>
+
+          <!-- 老番茄 -->
+          <div>
+            <div style="display:flex;justify-content:space-between;margin-bottom:5px;">
+              <span style="font-size:13px;color:#e8eaf0;">老番茄</span>
+              <span style="font-size:11px;color:#55606e;">1.0% transfer</span>
+            </div>
+            <div style="position:relative;height:10px;background:#131d2e;border-radius:5px;margin-bottom:3px;">
+              <div style="width:100%;height:100%;background:#8892a4;border-radius:5px;opacity:0.3;"></div>
+            </div>
+            <div style="position:relative;height:10px;background:#131d2e;border-radius:5px;">
+              <div style="width:1%;height:100%;background:#e05c5c;border-radius:5px;min-width:4px;"></div>
+            </div>
+            <div style="display:flex;justify-content:space-between;margin-top:3px;">
+              <span style="font-size:10px;color:#55606e;">Bili 19.92M</span>
+              <span style="font-size:10px;color:#e05c5c;">YT 192K</span>
+            </div>
+          </div>
+
+          <!-- 木鱼水心 -->
+          <div>
+            <div style="display:flex;justify-content:space-between;margin-bottom:5px;">
+              <span style="font-size:13px;color:#e8eaf0;">木鱼水心</span>
+              <span style="font-size:11px;color:#55606e;">0.4% transfer</span>
+            </div>
+            <div style="position:relative;height:10px;background:#131d2e;border-radius:5px;margin-bottom:3px;">
+              <div style="width:72%;height:100%;background:#8892a4;border-radius:5px;opacity:0.3;"></div>
+            </div>
+            <div style="position:relative;height:10px;background:#131d2e;border-radius:5px;">
+              <div style="width:0.25%;height:100%;background:#e05c5c;border-radius:5px;min-width:4px;"></div>
+            </div>
+            <div style="display:flex;justify-content:space-between;margin-top:3px;">
+              <span style="font-size:10px;color:#55606e;">Bili 14.39M</span>
+              <span style="font-size:10px;color:#e05c5c;">YT 50.5K</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- legend -->
+        <div style="display:flex;gap:20px;margin-top:20px;">
+          <div style="display:flex;align-items:center;gap:6px;"><div style="width:12px;height:6px;background:#8892a4;border-radius:3px;opacity:0.4;"></div><span style="font-size:11px;color:#55606e;">Bilibili</span></div>
+          <div style="display:flex;align-items:center;gap:6px;"><div style="width:12px;height:6px;background:#e05c5c;border-radius:3px;"></div><span style="font-size:11px;color:#55606e;">YouTube (actual)</span></div>
+          <div style="display:flex;align-items:center;gap:6px;"><div style="width:12px;height:6px;background:#c9a84c;border-radius:3px;"></div><span style="font-size:11px;color:#c9a84c;">Li Ziqi benchmark</span></div>
+        </div>
+      </div>
+
+      <!-- right: revenue upside -->
+      <div style="display:flex;flex-direction:column;gap:16px;">
+
+        <!-- Before / After revenue with big 10× arrow -->
+        <div style="background:#0e1420;border:1px solid rgba(201,168,76,0.25);border-radius:16px;padding:24px;">
+          <div style="font-size:11px;letter-spacing:2px;color:#c9a84c;text-transform:uppercase;font-weight:600;margin-bottom:20px;">影视飓风 — before &amp; after Trend Bridge</div>
+
+          <div style="display:flex;align-items:center;gap:12px;">
+            <!-- BEFORE -->
+            <div style="flex:1;background:#080c12;border-radius:12px;padding:16px 20px;text-align:center;">
+              <div style="font-size:11px;color:#55606e;letter-spacing:1px;margin-bottom:10px;text-transform:uppercase;">Without us</div>
+              <div style="font-size:13px;color:#55606e;margin-bottom:4px;">849K YouTube subs</div>
+              <div style="font-size:36px;font-weight:900;color:#e05c5c;line-height:1;letter-spacing:-1px;">$80K</div>
+              <div style="font-size:12px;color:#55606e;margin-top:4px;">per year</div>
+            </div>
+
+            <!-- 10× arrow -->
+            <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex-shrink:0;">
+              <div style="font-size:28px;font-weight:900;color:#c9a84c;line-height:1;">10×</div>
+              <svg width="48" height="20" viewBox="0 0 48 20" fill="none">
+                <path d="M0 10 L36 10" stroke="#c9a84c" stroke-width="2.5"/>
+                <polygon points="36,4 48,10 36,16" fill="#c9a84c"/>
+              </svg>
+              <div style="font-size:10px;color:#c9a84c;letter-spacing:1px;text-transform:uppercase;">uplift</div>
+            </div>
+
+            <!-- AFTER -->
+            <div style="flex:1;background:rgba(201,168,76,0.08);border:1.5px solid rgba(201,168,76,0.35);border-radius:12px;padding:16px 20px;text-align:center;">
+              <div style="font-size:11px;color:#c9a84c;letter-spacing:1px;margin-bottom:10px;text-transform:uppercase;font-weight:700;">With Trend Bridge</div>
+              <div style="font-size:13px;color:#8892a4;margin-bottom:4px;">4.4M YouTube subs</div>
+              <div style="font-size:36px;font-weight:900;color:#c9a84c;line-height:1;letter-spacing:-1px;">$900K</div>
+              <div style="font-size:12px;color:#8892a4;margin-top:4px;">per year</div>
+            </div>
+          </div>
+
+          <div style="margin-top:16px;background:rgba(201,168,76,0.06);border-radius:10px;padding:10px 16px;font-size:11px;color:#55606e;line-height:1.5;">
+            Assumes 30% global transfer rate · $3 YouTube RPM · 500K views/video · 2 videos/week. Brand deals excluded.
+          </div>
+        </div>
+
+        <!-- MCN scale — explicit stepping story -->
+        <div style="background:#0e1420;border:1px solid #1c2535;border-radius:16px;padding:24px;">
+          <div style="font-size:11px;letter-spacing:2px;color:#c9a84c;text-transform:uppercase;font-weight:600;margin-bottom:20px;">The more creators, the bigger our cut</div>
+
+          <!-- step 1 -->
+          <div style="display:flex;align-items:center;gap:16px;margin-bottom:14px;">
+            <div style="width:36px;height:36px;border-radius:50%;background:#131d2e;border:1.5px solid #2a3545;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#8892a4;flex-shrink:0;">1</div>
+            <div style="flex:1;">
+              <div style="font-size:13px;color:#8892a4;">1 creator localized</div>
+            </div>
+            <div style="font-size:18px;font-weight:800;color:#8892a4;">+$820K / yr</div>
+            <div style="font-size:13px;font-weight:700;color:#55606e;min-width:70px;text-align:right;">→ $82K <span style="font-size:10px;">our cut</span></div>
+          </div>
+
+          <!-- arrow down -->
+          <div style="padding-left:18px;margin-bottom:14px;">
+            <svg width="2" height="24" viewBox="0 0 2 24"><line x1="1" y1="0" x2="1" y2="24" stroke="#2a3545" stroke-width="2" stroke-dasharray="4 3"/></svg>
+          </div>
+
+          <!-- step 2 -->
+          <div style="display:flex;align-items:center;gap:16px;margin-bottom:14px;">
+            <div style="width:36px;height:36px;border-radius:50%;background:#131d2e;border:1.5px solid #c9a84c;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#c9a84c;flex-shrink:0;">20</div>
+            <div style="flex:1;">
+              <div style="font-size:13px;color:#e8eaf0;font-weight:600;">20 creators localized</div>
+              <div style="font-size:11px;color:#55606e;">one MCN agency deal</div>
+            </div>
+            <div style="font-size:18px;font-weight:800;color:#e8eaf0;">+$16M / yr</div>
+            <div style="font-size:14px;font-weight:800;color:#c9a84c;min-width:70px;text-align:right;">→ $1.6M <span style="font-size:10px;">our cut</span></div>
+          </div>
+
+          <!-- arrow down -->
+          <div style="padding-left:18px;margin-bottom:14px;">
+            <svg width="2" height="24" viewBox="0 0 2 24"><line x1="1" y1="0" x2="1" y2="24" stroke="#2a3545" stroke-width="2" stroke-dasharray="4 3"/></svg>
+          </div>
+
+          <!-- step 3 -->
+          <div style="display:flex;align-items:center;gap:16px;padding:14px;background:rgba(201,168,76,0.06);border:1.5px solid rgba(201,168,76,0.3);border-radius:12px;">
+            <div style="width:36px;height:36px;border-radius:50%;background:rgba(201,168,76,0.2);border:1.5px solid #c9a84c;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#c9a84c;flex-shrink:0;">200</div>
+            <div style="flex:1;">
+              <div style="font-size:14px;color:#fff;font-weight:700;">200 creators localized</div>
+              <div style="font-size:11px;color:#8892a4;">multiple MCN partners</div>
+            </div>
+            <div style="font-size:20px;font-weight:900;color:#fff;">+$164M / yr</div>
+            <div style="font-size:16px;font-weight:900;color:#c9a84c;min-width:80px;text-align:right;">→ $16.4M ARR</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div class="slide-num">08 / 11</div>
+</div>
+
+<!-- ===== SLIDE 9: MARKET ===== -->
+<div class="slide" style="background:#080c12;">
+  <div class="slide-inner">
+    <div class="label">Market</div>
+    <h2>A category that<br>doesn't exist yet.</h2>
+
+    <!-- top stats row -->
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:16px;margin-top:36px;">
+      <div style="background:#0e1420;border:1px solid #1c2535;border-radius:16px;padding:24px 20px;text-align:center;">
+        <div style="font-size:42px;font-weight:800;color:#c9a84c;letter-spacing:-2px;line-height:1;margin-bottom:6px;">$180B</div>
+        <div style="font-size:13px;color:#8892a4;line-height:1.5;">Global short-form video creator economy by 2027</div>
+        <div style="font-size:11px;color:#55606e;margin-top:8px;">Goldman Sachs, 2024</div>
+      </div>
+      <div style="background:#0e1420;border:1px solid #1c2535;border-radius:16px;padding:24px 20px;text-align:center;">
+        <div style="font-size:42px;font-weight:800;color:#c9a84c;letter-spacing:-2px;line-height:1;margin-bottom:6px;">1.5B</div>
+        <div style="font-size:13px;color:#8892a4;line-height:1.5;">TikTok monthly active users globally, 2024</div>
+        <div style="font-size:11px;color:#55606e;margin-top:8px;">ByteDance internal, 2024</div>
+      </div>
+      <div style="background:#0e1420;border:1px solid #1c2535;border-radius:16px;padding:24px 20px;text-align:center;">
+        <div style="font-size:42px;font-weight:800;color:#c9a84c;letter-spacing:-2px;line-height:1;margin-bottom:6px;">700M</div>
+        <div style="font-size:13px;color:#8892a4;line-height:1.5;">Douyin + Bilibili + XHS combined MAU</div>
+        <div style="font-size:11px;color:#55606e;margin-top:8px;">Platform disclosures, 2024</div>
+      </div>
+      <div style="background:#0e1420;border:1px solid rgba(201,168,76,0.3);border-radius:16px;padding:24px 20px;text-align:center;">
+        <div style="font-size:42px;font-weight:800;color:#c9a84c;letter-spacing:-2px;line-height:1;margin-bottom:6px;">$0</div>
+        <div style="font-size:13px;color:#8892a4;line-height:1.5;">Spent on AI cross-border viral intelligence today</div>
+        <div style="font-size:11px;color:#55606e;margin-top:8px;">The whitespace we own</div>
+      </div>
+    </div>
+
+    <!-- bottom: market sizing + competitor table side by side -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:20px;">
+
+      <!-- SAM / SOM -->
+      <div style="background:#0e1420;border:1px solid #1c2535;border-radius:16px;padding:24px;">
+        <div style="font-size:11px;letter-spacing:2px;color:#c9a84c;text-transform:uppercase;font-weight:600;margin-bottom:16px;">Market Sizing</div>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:#080c12;border-radius:10px;">
+            <div>
+              <div style="font-size:12px;color:#55606e;letter-spacing:1px;">TAM</div>
+              <div style="font-size:12px;color:#8892a4;margin-top:2px;">All cross-border creator tools globally</div>
+            </div>
+            <div style="font-size:22px;font-weight:800;color:#8892a4;">$12B</div>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:#080c12;border-radius:10px;">
+            <div>
+              <div style="font-size:12px;color:#c9a84c;letter-spacing:1px;">SAM</div>
+              <div style="font-size:12px;color:#8892a4;margin-top:2px;">CN/KR/JP creators targeting EN markets</div>
+            </div>
+            <div style="font-size:22px;font-weight:800;color:#c9a84c;">$2.4B</div>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:rgba(201,168,76,0.06);border:1px solid rgba(201,168,76,0.2);border-radius:10px;">
+            <div>
+              <div style="font-size:12px;color:#c9a84c;letter-spacing:1px;font-weight:700;">SOM · Y1</div>
+              <div style="font-size:12px;color:#8892a4;margin-top:2px;">200 creators × $82K avg revenue share</div>
+            </div>
+            <div style="font-size:22px;font-weight:800;color:#c9a84c;">$16.4M</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Competitor table -->
+      <div style="background:#0e1420;border:1px solid #1c2535;border-radius:16px;padding:24px;">
+        <div style="font-size:11px;letter-spacing:2px;color:#c9a84c;text-transform:uppercase;font-weight:600;margin-bottom:16px;">vs. Existing Tools</div>
+        <div style="display:grid;grid-template-columns:140px 1fr 1fr 1fr 1fr;gap:6px;align-items:center;">
+          <div></div>
+          <div style="font-size:10px;color:#55606e;text-align:center;font-weight:600;letter-spacing:0.5px;">VIRAL<br>SCORE</div>
+          <div style="font-size:10px;color:#55606e;text-align:center;font-weight:600;letter-spacing:0.5px;">CULTURAL<br>AI</div>
+          <div style="font-size:10px;color:#55606e;text-align:center;font-weight:600;letter-spacing:0.5px;">LOCALIZE<br>PLAN</div>
+          <div style="font-size:10px;color:#55606e;text-align:center;font-weight:600;letter-spacing:0.5px;">CROSS<br>BORDER</div>
+
+          <div style="font-size:13px;color:#c9a84c;font-weight:700;padding:6px 0;">Trend Bridge</div>
+          <div style="text-align:center;color:#4caf82;font-size:15px;">✓</div>
+          <div style="text-align:center;color:#4caf82;font-size:15px;">✓</div>
+          <div style="text-align:center;color:#4caf82;font-size:15px;">✓</div>
+          <div style="text-align:center;color:#4caf82;font-size:15px;">✓</div>
+
+          <div style="font-size:13px;color:#8892a4;padding:6px 0;">CapCut</div>
+          <div style="text-align:center;color:#e05c5c;font-size:15px;">✗</div>
+          <div style="text-align:center;color:#e05c5c;font-size:15px;">✗</div>
+          <div style="text-align:center;font-size:10px;color:#55606e;">text only</div>
+          <div style="text-align:center;color:#e05c5c;font-size:15px;">✗</div>
+
+          <div style="font-size:13px;color:#8892a4;padding:6px 0;">SubMagic</div>
+          <div style="text-align:center;color:#e05c5c;font-size:15px;">✗</div>
+          <div style="text-align:center;color:#e05c5c;font-size:15px;">✗</div>
+          <div style="text-align:center;font-size:10px;color:#55606e;">captions</div>
+          <div style="text-align:center;color:#e05c5c;font-size:15px;">✗</div>
+
+          <div style="font-size:13px;color:#8892a4;padding:6px 0;">Social Blade</div>
+          <div style="text-align:center;font-size:10px;color:#55606e;">post-hoc</div>
+          <div style="text-align:center;color:#e05c5c;font-size:15px;">✗</div>
+          <div style="text-align:center;color:#e05c5c;font-size:15px;">✗</div>
+          <div style="text-align:center;color:#e05c5c;font-size:15px;">✗</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="slide-num">09 / 10</div>
+</div>
+
+<!-- ===== SLIDE 7: CTA ===== -->
+<div class="slide" style="background:#080c12;">
+  <div class="slide-inner" style="text-align:center;">
+    <div class="label" style="text-align:center;">Beta University Hackathon · April 18, 2026</div>
+    <h2 style="font-size:56px;margin-bottom:20px;">Bridge the gap.<br><span class="gold">Go global, intentionally.</span></h2>
+    <p style="font-size:18px;color:#8892a4;max-width:520px;margin:0 auto 48px;line-height:1.6;">The first AI system that scores cross-border viral potential and hands creators a publish-ready package — in seconds.</p>
+
+    <!-- mini flow -->
+    <svg viewBox="0 0 700 70" style="width:100%;max-width:700px;margin:0 auto 48px;" fill="none">
+      <rect x="0" y="15" width="140" height="40" rx="10" fill="#0e1420" stroke="#1c2535" stroke-width="1.5"/>
+      <text x="70" y="40" fill="#8892a4" font-size="13" font-family="system-ui" text-anchor="middle">Any Video</text>
+      <path d="M140 35 L170 35" stroke="#c9a84c" stroke-width="2"/>
+      <polygon points="170,30 182,35 170,40" fill="#c9a84c"/>
+      <rect x="182" y="15" width="140" height="40" rx="10" fill="#0e1420" stroke="rgba(201,168,76,0.4)" stroke-width="1.5"/>
+      <text x="252" y="40" fill="#c9a84c" font-size="13" font-family="system-ui" text-anchor="middle">AI Analysis</text>
+      <path d="M322 35 L352 35" stroke="#c9a84c" stroke-width="2"/>
+      <polygon points="352,30 364,35 352,40" fill="#c9a84c"/>
+      <rect x="364" y="15" width="140" height="40" rx="10" fill="#0e1420" stroke="rgba(201,168,76,0.4)" stroke-width="1.5"/>
+      <text x="434" y="40" fill="#c9a84c" font-size="13" font-family="system-ui" text-anchor="middle">Fit Score + Plan</text>
+      <path d="M504 35 L534 35" stroke="#c9a84c" stroke-width="2"/>
+      <polygon points="534,30 546,35 534,40" fill="#c9a84c"/>
+      <rect x="546" y="15" width="154" height="40" rx="10" fill="rgba(201,168,76,0.12)" stroke="rgba(201,168,76,0.5)" stroke-width="1.5"/>
+      <text x="623" y="40" fill="#c9a84c" font-size="13" font-family="system-ui" text-anchor="middle" font-weight="700">Publish</text>
+    </svg>
+
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:48px;">
+      <div style="background:#0e1420;border:1px solid #1c2535;border-radius:10px;padding:10px 20px;font-size:13px;color:#8892a4;">Google Gemini</div>
+      <div style="background:#0e1420;border:1px solid #1c2535;border-radius:10px;padding:10px 20px;font-size:13px;color:#8892a4;">BytePlus Seedance</div>
+      <div style="background:#0e1420;border:1px solid #1c2535;border-radius:10px;padding:10px 20px;font-size:13px;color:#8892a4;">Python · Pydantic</div>
+      <div style="background:#0e1420;border:1px solid #1c2535;border-radius:10px;padding:10px 20px;font-size:13px;color:#8892a4;">Multimodal Video AI</div>
+    </div>
+
+    <a href="https://github.com/Kazuki-Yoda/trend-bridge" style="display:inline-block;background:#c9a84c;color:#080c12;font-size:15px;font-weight:800;letter-spacing:0.5px;padding:16px 40px;border-radius:100px;text-decoration:none;">github.com/Kazuki-Yoda/trend-bridge</a>
+  </div>
+  <div class="slide-num">10 / 10</div>
+</div>
+
+</body>
+</html>
