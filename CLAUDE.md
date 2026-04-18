@@ -63,3 +63,29 @@ Put fixtures under `tests/fixtures/` (reusable in tests) or `src/trend_bridge/fi
 - Happy path works for the scripted demo scenario.
 - Errors don't crash the run — log and fall through to a fallback.
 - Everything else (retries, polish, coverage, types) is out of scope.
+
+## Working together
+
+Multiple people (and agents) are pushing to `main`. A few rules keep us out of each other's way.
+
+### Before every push
+
+1. **Know where you are.** `git branch --show-current` and, if you're in a worktree, `git rev-parse --show-toplevel` — make sure you're editing the repo you think you are.
+2. **`git fetch origin`** and compare: `git status` / `git log --oneline HEAD..origin/main`.
+3. **If behind `origin/main`**, rebase locally before pushing:
+   ```bash
+   git pull --rebase origin main
+   ```
+   Resolve conflicts, re-run tests, then push. Don't merge — it muddies history during a sprint.
+4. **Never force-push `main`.** If a rebase looks scary, stop and ask.
+
+### Structure the repo to minimise conflicts
+
+The goal: two people touching "different features" should rarely touch the same file.
+
+- **One module per concern, small files.** Prefer `ingestion/youtube.py` + `ingestion/tiktok.py` over a single `ingestion.py` with both inside. Ditto for `api_clients/<vendor>/<surface>.py`.
+- **One fixture per scenario.** `fixtures/trending_jp.json`, `fixtures/trending_us.json` — not a giant `fixtures.json`.
+- **One plan/notes file per feature.** `docs/plans/<feature>/NOTES.md`, not a shared `TODO.md`.
+- **Avoid shared registries.** No central `__init__.py` that re-exports everything, no single `config.py` everyone edits. Import from leaf modules.
+- **Own your package.** If you're building feature X, create `src/trend_bridge/x/` and work inside it. Cross-feature wiring happens in one small place (e.g. `main.py` or a `pipeline.py`), edited last.
+- **Commit often, push often.** Small commits rebase cleanly; giant ones don't.
