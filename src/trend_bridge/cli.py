@@ -10,14 +10,20 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
+from trend_bridge.schemas import ScoreOutcome
+
 
 def run_score(
     *,
     source: Path,
     metadata_path: Path,
     target: str,
-) -> None:
-    """Execute A + L for one source video and render the result."""
+) -> ScoreOutcome:
+    """Execute A + L for one source video.
+
+    Logs progress via the ``logging`` module; returns the bundled outcome.
+    Stdout rendering is the caller's responsibility (see ``renderer``).
+    """
     raise NotImplementedError
 
 

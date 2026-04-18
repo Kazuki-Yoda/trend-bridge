@@ -47,10 +47,11 @@ src/trend_bridge/
       mock.py                   # CachingGeminiStructuredOutputService (TB_MOCK)
       __init__.py               # existing exports + make_gemini_service() factory
   schemas.py                    # Pydantic: VideoMetadata, RegionalInsight,
-                                # ScoringReport, LocalizationPlan, ...
+                                # ScoringReport, LocalizationPlan, ScoreOutcome, ...
   insight_builder.py            # offline: build samples/insights/us_tiktok.json
   scorer.py                     # A: score_video() -> ScoringReport
   localizer.py                  # L: plan_localization() -> LocalizationPlan
+  renderer.py                   # minimal P0 renderer — plain text + JSON; Rich in P1
   cli.py                        # arg-driven: `score`, `build-insight`
   demo.py                       # zero-arg: loops bundled sources
   __main__.py                   # python -m trend_bridge → cli
@@ -59,7 +60,7 @@ src/trend_bridge/
 - One file per responsibility; small enough to hold in context at once.
 - All Gemini calls route through `api_clients/gemini/`. Business logic never sees the mock flag.
 - `samples/` lives at the repo root (not inside the package). It is dev/demo data, not production content, and not installed via `pip install`. Commands are expected to run from the repo root; paths resolve relative to `cwd` (or use `REPO_ROOT = Path(__file__).resolve().parents[2]` from inside the package if a caller ever runs from elsewhere).
-- **No renderer in P0.** Output is `print(json.dumps(model.model_dump(), indent=2, ensure_ascii=False))` of each Pydantic result, with a plain text header per source. A Rich or web renderer is P1 — see §10.
+- **`renderer.py` is minimal in P0.** Exposes `render_pair(ScoreOutcome)` and `render_demo(list[ScoreOutcome])`; body is a plain-text header + indented JSON dump of each Pydantic result. The P1 Rich upgrade replaces the function bodies without changing the public surface, so `cli.py` and `demo.py` don't change — see §10.
 
 ## 4. Schemas (`schemas.py`)
 
@@ -138,6 +139,13 @@ class LocalizationPlan(BaseModel):
     suggested_hashtags: list[str]
     actions: list[LocalizationAction]   # prioritized
     estimated_effort: Literal["light", "moderate", "heavy"]
+
+# --- Pipeline-level output: one source video end-to-end -------------------
+# NOT a Gemini response_schema — this is the Python return type of run_score.
+class ScoreOutcome(BaseModel):
+    metadata: VideoMetadata
+    report: ScoringReport
+    plan: LocalizationPlan
 ```
 
 ### Schema design notes
@@ -176,9 +184,10 @@ python -m trend_bridge score --source v.mp4 --metadata v.json --target us-tiktok
       → Gemini call #2, response_schema=LocalizationPlan
       → prompt includes the full ScoringReport JSON (reuses A's reasoning)
       → returns LocalizationPlan
- 4. Print a plain-text header for the source (title, platform, fit_score),
-    then dump the ScoringReport and LocalizationPlan as indented JSON
-    to stdout. No Rich, no colors, no panels — that is P1 (see §10).
+ 4. cli.run_score wraps (metadata, report, plan) into a ScoreOutcome,
+    logs progress via ``logging``, and *returns* the outcome. Rendering is
+    the CLI layer's job: ``main()`` calls ``renderer.render_pair(outcome)``
+    after receiving it.
 ```
 
 ### Runtime — demo (`demo`)
@@ -191,9 +200,11 @@ python -m trend_bridge demo
  3. For each source (sequentially, NOT gathered):
        run the same score+localize pair
        collect (metadata, report, plan)
- 4. Sort collected list by report.fit_score desc
- 5. For each sorted triple, print the same plain-text header + JSON block
-    as the single-source path, preceded by a "=== rank N of M ===" line.
+ 4. Sort collected list by outcome.report.fit_score desc; this is
+    run_demo's return value.
+ 5. main() calls renderer.render_demo(outcomes), which prints one
+    "=== rank N of M ===" line per source, then delegates to
+    render_pair for the body.
 ```
 
 ### What flows where
@@ -282,10 +293,11 @@ Stage command (the one the judge sees):
 python -m trend_bridge demo
 ```
 
-Expected output is plain text + JSON — no Rich, no colors. For each source (ordered by `fit_score` desc):
+Expected output is plain text + JSON — no Rich, no colors (P0). Emitted by `renderer.render_demo`. For each source (ordered by `fit_score` desc):
 
 ```
-=== rank 1 of 3 — fit_score=82 — "《早餐能有多卷》" [xiaohongshu] ===
+=== rank 1 of 3 ===
+=== fit_score=82 — "《早餐能有多卷》" [xiaohongshu] ===
 --- ScoringReport ---
 { ...indented JSON of the ScoringReport model... }
 --- LocalizationPlan ---
@@ -302,7 +314,7 @@ Everything in §1–§9.
 
 ### P1 — next, after P0 ships
 
-- **Rich terminal renderer.** A `renderer.py` module that turns the P0 JSON dumps into color-coded panels (score badge, severity colors on cultural flags, priority badges on actions). Wires into `cli.py` and `demo.py` behind a `--pretty` flag; default remains JSON so pipelines and tests stay stable.
+- **Rich renderer upgrade.** Replace the bodies of `renderer.render_pair` / `renderer.render_demo` with Rich panels (score badge, severity colors on cultural flags, priority badges on actions). Public function signatures don't change, so `cli.py`, `demo.py`, and tests stay stable. Optional `--json` flag keeps the P0 JSON output available for pipes and tests.
 - **BytePlus Seedance video generation.** Use `LocalizationPlan` as input to generate a short remix preview or localized thumbnail. Dependency is already in `requirements.txt`; no calls in P0.
 - **Concurrency.** `asyncio.gather` across sources in the demo loop. A and L per source stay sequential (L depends on A). Cuts demo runtime ~3×.
 
