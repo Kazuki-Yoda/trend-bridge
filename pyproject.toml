@@ -12,3 +12,7 @@ where = ["src"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+addopts = "-m 'not api'"
+markers = [
+    "api: hits real external APIs (skip by default, run with: pytest -m api)",
+]
