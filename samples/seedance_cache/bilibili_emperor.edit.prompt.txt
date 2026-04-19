@@ -1,0 +1,30 @@
+Edit @Video1 into a TikTok-US meme remix.
+
+CRITICAL LANGUAGE CONSTRAINT — read this first: all text rendered in the output must be ENGLISH LATIN ALPHABET ONLY. Do NOT render Chinese characters, hanzi, kanji, or any CJK glyphs anywhere in the final video. @Video1 is Chinese-language source material — ignore its language when generating on-screen text.
+
+Preserve every pixel of the original character performance, costuming, palace set, lighting, camera work, and the auto-tuned Mandarin vocal audio. Do not regenerate the emperor, chamber, or bedding. Do not retime or reorder footage.
+
+Only permitted visual modifications:
+(a) one English meme caption (see below)
+(b) one cinematic color-grade LUT
+(c) one beat-drop punch-in
+
+TEXT CAPTION — burn into the final video:
+- Content, plain English Latin letters only, no emoji, no punctuation: POV EMPEROR MOOD
+- Style: short bold all-caps English TikTok sticker caption.
+- Typography: Inter 900 or nearest bold geometric sans, 96pt, solid white fill, 5px hard black stroke. No drop shadow.
+- Position: centered horizontally, baseline 14% down from the top edge.
+- Timing: visible from frame 1, held at 100% opacity through to final frame. Completely static — no fade, no slide, no karaoke, no word-by-word animation.
+- Render these glyphs in English Latin script: P O V space E M P E R O R space M O O D. Do not substitute Chinese characters. No other text in the frame.
+
+Look / grade: one cinematic LUT applied uniformly — teal-and-orange with crushed blacks (~8% lift), pushed candlelight warmth, +8% saturation, -10% highlights, +5% contrast. 6% fine film grain. Faint round vignette at 15% opacity. Grade does not drift.
+
+Beat-drop accent: at the exact frame @Video1's auto-tuned vocal peaks, a single 1-frame full-frame white flash at 80% opacity, immediately followed by a 1.05× punch-in on the emperor's face that holds to end. No further punch-ins, no shake.
+
+Motion: do not retime, trim, loop, or reorder @Video1. Emperor's performance stays on original frame timings.
+
+Audio: reuse @Video1's original audio as-is — same track, same levels. No added music, no foley.
+
+Constraints: vertical 9:16, 6s.
+
+REPEAT: on-screen text is English Latin only, content is exactly "POV EMPEROR MOOD", no Chinese glyphs anywhere.

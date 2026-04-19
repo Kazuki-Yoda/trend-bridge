@@ -1,0 +1,31 @@
+Generate a fresh TikTok react/remix clip that riffs on @Video1. @Video1 plays as an inset while a generated Gen-Z creator reacts in real time.
+
+CRITICAL LANGUAGE CONSTRAINT: all on-screen text must be ENGLISH LATIN ALPHABET ONLY. Do NOT render Chinese, hanzi, kanji, or any CJK glyphs. @Video1 is Chinese-language source used only for audio/mood reference.
+
+Subject: a Gen-Z creator, early 20s, short messy dark hair, oversized black hoodie, gold hoop earrings. Slouched at a wooden desk in a cozy American bedroom, one elbow on the desk, one cheek on their hand.
+
+Action:
+- 0:00–0:02: deadpan, staring into the lens, slow blink.
+- 0:02–0:04: as @Video1's auto-tuned vocal builds toward its beat drop, the creator's expression crumples — mouth corners down, eyes soften. On the beat drop itself, they collapse their head onto their folded arms, shoulders slumping.
+- 0:04–0:08: lifts head just enough for chin to clear the desk, locks eyes with camera, silently mouths a short sad word with an exaggerated frown, then drops back onto arms.
+
+Environment: cozy bedroom at night, single amber desk lamp (3000K) camera-right. Fairy lights on the headboard, out of focus. Posters on the wall.
+
+Camera: locked-off medium, chest-up, 35mm, f/2.8 shallow DOF. Subtle 1.08× push-in from 0:02 to 0:04 timed to the beat drop, then holds.
+
+Green-screen layout: @Video1 plays in the upper-right corner inside a rounded-rectangle iPhone-style frame at ~32% of frame width, top-right safe zone, 4% padding. Inset's beat drop coincides with the creator's collapse at 0:04.
+
+Style: TikTok react/POV meme. Warm Kodak Portra 400 grade on the creator. Do not regrade @Video1's palette inside the inset.
+
+TEXT CAPTION — burn into the final video:
+- Content, English Latin only, no emoji, no punctuation: POV EMPEROR MOOD
+- Typography: Inter 900, 88pt, solid white, 5px hard black stroke. No drop shadow.
+- Position: centered horizontally, baseline 14% down from top edge, clear of the @Video1 inset.
+- Timing: static at 100% opacity across 0:00–0:08. No fade, no animation.
+- Render these glyphs in English Latin: P O V space E M P E R O R space M O O D. No Chinese anywhere.
+
+Audio: @Video1's auto-tuned vocal is the dominant track, full mix during its beat drop. Quiet bedroom ambience at ~-18dB under the creator. No added music.
+
+Constraints: vertical 9:16, 8s.
+
+REPEAT: on-screen text is English Latin only, content is exactly "POV EMPEROR MOOD", no Chinese glyphs anywhere.
