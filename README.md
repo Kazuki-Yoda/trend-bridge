@@ -2,7 +2,7 @@
 
 > **Drop in any video. Get a viral fit score, a localization plan, and publish cross-border — in 2 minutes.**
 
-[View Full Pitch Deck →](./pitch.html)
+[View Full Pitch Deck →](https://ejzhu2025.github.io/trend-bridge-pitch/)
 
 ## UI Screenshots
 
